@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "52184339179",
+    "firebase_url": "https://parepan-95956.firebaseio.com",
+    "project_id": "parepan-95956",
+    "storage_bucket": "parepan-95956.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:52184339179:android:ab062109d4c138cd",
+        "android_client_info": {
+          "package_name": "ru.timuruktus.parepan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "52184339179-ol78gmtsvqiolflbqf7giqmusp9sev8j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.timuruktus.parepan",
+            "certificate_hash": "E1539C1A40259EEFB5828281D7AD44308F1C073F"
+          }
+        },
+        {
+          "client_id": "52184339179-b8vpd8emvs4kuce7jlo6k7dqiampc9b8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsrGXUb56BeHpWCYjjW6vAe1ZUJbtwhb8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "52184339179-b8vpd8emvs4kuce7jlo6k7dqiampc9b8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

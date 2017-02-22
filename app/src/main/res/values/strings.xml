@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Parepan</string>
+    <string name="title_activity_main">Parepan</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Настройки</string>
+
+    // [FOR LOGIN ACTIVITY]
+    <string name="login_but_confirm">Подтверждаю</string>
+</resources>
