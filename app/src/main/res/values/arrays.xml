@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="cities_array">
+        <item>В списке нет моего города</item>
+        <item>Екатеринбург</item>
+    </string-array>
+
+    <string-array name="schools_array">
+        <item>В списке нет моей школы</item>
+        <item>Гимназия 177</item>
+    </string-array>
+</resources>

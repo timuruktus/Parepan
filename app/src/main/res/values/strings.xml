@@ -9,4 +9,6 @@
 
     // [FOR LOGIN ACTIVITY]
     <string name="login_but_confirm">Подтверждаю</string>
+    <string name="login_text_city">Выберите ваш город:</string>
+    <string name="login_text_school">Выберите вашу школу:</string>
 </resources>

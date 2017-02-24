@@ -8,6 +8,8 @@ import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.VideoView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -23,22 +25,26 @@ public class LoginActivity extends Activity {
     // If things goes right
     public static final String APP_PREFERENCES_COUNTRY = "Country";
     SharedPreferences settings;
-    VideoView videoView;
+    Spinner loginCitySpinner, loginSchoolSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        videoView = (VideoView) findViewById(R.id.videoView);
-
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        loginCitySpinner = (Spinner) findViewById(R.id.loginCitySpinner);
+        loginSchoolSpinner = (Spinner) findViewById(R.id.loginSchoolSpinner);
+
         settings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         String city = settings.getString(APP_PREFERENCES_CITY, "");
         String school = settings.getString(APP_PREFERENCES_SCHOOL, "");
 
         if(city.equals("") || settings.getString(APP_PREFERENCES_CITY, "").equals("")){
             // User didn't choose his city and school
-            
+            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                    this, R.array.cities_array, android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            loginCitySpinner.setAdapter(adapter);
         }else{
             // User has already choose his login
             Intent intent = new Intent(this, MainActivity.class);
@@ -54,4 +60,5 @@ public class LoginActivity extends Activity {
     protected void onResume(){
         super.onResume();
     }
+
 }
