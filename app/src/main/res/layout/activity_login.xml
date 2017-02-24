@@ -5,77 +5,34 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/login_background"
-        android:id="@+id/loginBackground"
-        android:scaleY="2.7"
-        android:scaleX="2.5"
-        android:foreground="#aa000117"
-        android:visibility="visible"
-        android:alpha="100" />
 
-    <Spinner
-        android:layout_width="300dp"
-        android:layout_marginTop="84dp"
-        android:id="@+id/loginCitySpinner"
-        android:gravity="start"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="@android:color/white"
-        android:layout_height="50dp"
-        android:elevation="0dp"
-        android:contentDescription="hint" />
-
-    <Spinner
-        android:layout_width="300dp"
-        android:layout_marginTop="160dp"
-        android:id="@+id/loginSchoolSpinner"
-        android:gravity="start"
-        android:layout_below="@+id/loginCitySpinner"
-        android:layout_alignStart="@+id/loginCitySpinner"
-        android:background="@android:color/white"
-        android:layout_height="50dp" />
-
-    <Button
-        android:text="@string/login_but_confirm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginConfirm"
-        android:textSize="15sp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="68dp"
-        android:layout_alignEnd="@+id/loginSchoolSpinner"
-        android:layout_alignStart="@+id/loginSchoolSpinner" />
-
-    <TextView
-        android:text="@string/login_text_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginTextCity"
-        android:textSize="24sp"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/loginCitySpinner"
-        android:layout_marginTop="51dp"
-        android:layout_alignEnd="@+id/loginCitySpinner"
-        android:textColor="@android:color/white" />
-
-    <TextView
-        android:text="@string/login_text_school"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginTextSchool"
-        android:textSize="24sp"
-        android:textColor="@android:color/white"
-        android:layout_marginBottom="56dp"
-        android:layout_alignBottom="@+id/loginSchoolSpinner"
-        android:layout_alignStart="@+id/loginSchoolSpinner" />
-
-
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        android:id="@+id/spinner"
+    <ru.timuruktus.parepan.LoginPart.ExtendedSliderLayout
+        android:id="@+id/slider"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="240dp"
+        android:foreground="#ad000000">
+
+    </ru.timuruktus.parepan.LoginPart.ExtendedSliderLayout>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginChooseText"
+        android:layout_marginTop="85dp"
+        android:textAlignment="center"
+        android:textSize="34sp"
+        android:textColor="@android:color/white"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="43dp"
+        android:background="#eaeaea"
+        android:id="@+id/loginCitiesList"
+        android:layout_height="400dp" />
 
 </RelativeLayout>
