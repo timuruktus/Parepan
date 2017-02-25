@@ -2,17 +2,24 @@ package ru.timuruktus.parepan;
 
 import android.app.Fragment;
 import android.graphics.Typeface;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import org.greenrobot.eventbus.EventBus;
+
+import ru.timuruktus.parepan.MainPart.EOnFragmentChanged;
 
 
 public class BaseFragment extends Fragment {
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        EventBus.getDefault().post(new EOnFragmentChanged(this));
+        Log.d("mytag", "event was sent");
+    }
 
 
     /**

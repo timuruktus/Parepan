@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:text="@string/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginChooseText"
+        android:layout_marginTop="43dp"
+        android:textAlignment="center"
+        android:textSize="56sp"
+        android:textColor="@color/hint"
+        android:typeface="serif"
+        android:textStyle="normal|bold|italic"
+        android:fontFamily="cursive"
+        android:background="@drawable/textview_style"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <fr.ganfra.materialspinner.MaterialSpinner
+        android:id="@+id/spinner"
+        android:layout_width="fill_parent"
+        app:ms_multiline="false"
+        app:ms_hint="@string/login_text_city"
+        app:ms_enableFloatingLabel="true"
+        app:ms_enableErrorLabel="true"
+        app:ms_floatingLabelText="floating label"
+        app:ms_baseColor="@color/base"
+        app:ms_highlightColor="@color/highlight"
+        app:ms_errorColor="@color/error_color"
+        app:ms_typeface="OpenSans.ttf"
+        app:ms_thickness="2dp"
+        app:ms_hintColor="@color/hint"
+        app:ms_arrowColor="@color/arrow"
+        app:ms_arrowSize="16dp"
+        app:ms_alignLabels="false"
+        app:ms_floatingLabelColor="@color/floating_label"
+        android:layout_below="@+id/loginChooseText"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="92dp"
+        android:layout_height="50dp" />
+
+</RelativeLayout>
