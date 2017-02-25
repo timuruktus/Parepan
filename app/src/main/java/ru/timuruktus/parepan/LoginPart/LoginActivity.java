@@ -36,9 +36,7 @@ public class LoginActivity extends Activity {
     // If things goes right
     public static final String APP_PREFERENCES_COUNTRY = "Country";
     SharedPreferences settings;
-    ExtendedSliderLayout imageSlider;
     TextView loginChooseText;
-    ListView loginCitiesList;
 
     private static final String[] CITIES = {
             "Моего города нет в списке", "Екатеринбург",};
@@ -68,28 +66,7 @@ public class LoginActivity extends Activity {
     }
 
     void loadAllElements(){
-        imageSlider = (ExtendedSliderLayout) findViewById(R.id.slider);
         loginChooseText = (TextView) findViewById(R.id.loginChooseText);
-        loginCitiesList = (ListView) findViewById(R.id.loginCitiesList);
-
-        ArrayList<Integer> files = new ArrayList<>();
-        files.add(R.drawable.img1);
-        files.add(R.drawable.img2);
-        files.add(R.drawable.img3);
-
-
-        for(int i = 0; i < files.size(); i++){
-            // initialize a SliderLayout
-            DefaultSliderView sliderView = new DefaultSliderView(this);
-            sliderView
-                    .image(files.get(i))
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
-            imageSlider.addSlider(sliderView);
-        }
-        imageSlider.stopAutoCycle();
-        imageSlider.setIndicatorVisibility(PagerIndicator.IndicatorVisibility.Invisible);
-        imageSlider.setActivated(false);
-        imageSlider.getPagerIndicator().setVisibility(View.INVISIBLE);
 
     }
 

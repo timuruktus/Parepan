@@ -6,33 +6,25 @@
     android:layout_height="match_parent">
 
 
-    <ru.timuruktus.parepan.LoginPart.ExtendedSliderLayout
-        android:id="@+id/slider"
-        android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:foreground="#ad000000">
-
-    </ru.timuruktus.parepan.LoginPart.ExtendedSliderLayout>
-
     <TextView
-        android:text="TextView"
+        android:text="@string/app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/loginChooseText"
-        android:layout_marginTop="85dp"
+        android:layout_marginTop="43dp"
         android:textAlignment="center"
-        android:textSize="34sp"
-        android:textColor="@android:color/white"
+        android:textSize="56sp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:typeface="serif"
+        android:textStyle="normal|bold|italic"
+        android:fontFamily="cursive"
+        android:fadeScrollbars="false"
+        android:textAllCaps="false"
+        android:includeFontPadding="false"
+        android:duplicateParentState="false"
+        android:freezesText="false"
+        android:background="@drawable/textview_style"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
-
-    <ListView
-        android:layout_width="300dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="43dp"
-        android:background="#eaeaea"
-        android:id="@+id/loginCitiesList"
-        android:layout_height="400dp" />
 
 </RelativeLayout>

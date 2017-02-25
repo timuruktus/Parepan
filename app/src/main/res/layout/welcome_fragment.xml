@@ -1,6 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:id="@+id/bookCard">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_welcome_book"
+                android:id="@+id/bookImage"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp" />
+
+            <TextView
+                android:text="@string/bookTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bookTitle"
+                android:textAlignment="center"
+                android:layout_marginTop="120dp"
+                android:textSize="24sp"
+                android:textColor="#212121" />
+
+            <TextView
+                android:text="@string/bookText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/bookText"
+                android:textAlignment="center"
+                android:layout_marginTop="148dp"
+                android:textSize="10sp"
+                android:textColor="@android:color/holo_blue_dark" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:id="@+id/scheduleCard">
+
+            <TextView
+                android:text="@string/inDevelop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scheduleText"
+                android:textAlignment="center"
+                android:layout_marginTop="148dp"
+                android:textSize="10sp"
+                android:textColor="@android:color/holo_blue_dark" />
+
+            <TextView
+                android:text="@string/scheduleTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/scheduleTitle"
+                android:textAlignment="center"
+                android:layout_marginTop="120dp"
+                android:textSize="24sp"
+                android:textColor="#212121" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_welcome_schedule"
+                android:id="@+id/scheduleImage"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp" >
+
+            <TextView
+                android:text="@string/inDevelop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView6"
+                android:textAlignment="center"
+                android:layout_marginTop="120dp"
+                android:textSize="24sp"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_welcome_indev"
+                android:id="@+id/imageView6"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp" />
+
+            <TextView
+                android:text="@string/inDevelop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:textAlignment="center"
+                android:layout_marginTop="148dp"
+                android:textSize="10sp"
+                android:textColor="@color/colorPrimary" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp" >
+
+            <TextView
+                android:text="@string/inDevelop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView12"
+                android:textAlignment="center"
+                android:layout_marginTop="148dp"
+                android:textSize="10sp"
+                android:textColor="@color/colorPrimary" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_welcome_book"
+                android:id="@+id/imageView7"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp" />
+
+            <TextView
+                android:text="@string/inDevelop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                android:textAlignment="center"
+                android:layout_marginTop="120dp"
+                android:textSize="24sp"
+                android:textColor="@android:color/black" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp" >
+
+            <TextView
+                android:text="@string/inDevelop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView14"
+                android:textAlignment="center"
+                android:layout_marginTop="148dp"
+                android:textSize="10sp"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:text="@string/inDevelop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                android:textAlignment="center"
+                android:layout_marginTop="120dp"
+                android:textSize="24sp"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_welcome_book"
+                android:id="@+id/imageView9"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp" />
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="5dp" >
+
+            <TextView
+                android:text="@string/inDevelop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView13"
+                android:textAlignment="center"
+                android:layout_marginTop="148dp"
+                android:textSize="10sp"
+                android:textColor="@color/colorPrimary" />
+
+            <TextView
+                android:text="@string/inDevelop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10"
+                android:textAlignment="center"
+                android:layout_marginTop="120dp"
+                android:textSize="24sp"
+                android:textColor="@android:color/black" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:srcCompat="@drawable/ic_welcome_book"
+                android:id="@+id/imageView8"
+                android:layout_marginBottom="60dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
 </LinearLayout>

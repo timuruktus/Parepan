@@ -1,5 +1,7 @@
 package ru.timuruktus.parepan.MainPart;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -15,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ru.timuruktus.parepan.R;
+import ru.timuruktus.parepan.WelcomePart.WelcomeFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        loadFragment();
     }
 
     @Override
@@ -92,5 +96,16 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Load fragment
+     */
+    private void loadFragment(){
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        WelcomeFragment mainFragment = new WelcomeFragment();
+        fragmentTransaction.replace(R.id.fragmentContainer, mainFragment);
+        fragmentTransaction.commit();
     }
 }

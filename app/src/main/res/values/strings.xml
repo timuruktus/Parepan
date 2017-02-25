@@ -11,4 +11,11 @@
     <string name="login_but_confirm">Подтверждаю</string>
     <string name="login_text_city">Выберите ваш город:</string>
     <string name="login_text_school">Выберите вашу школу:</string>
+
+    // [FOR WELCOME FRAGMENT]
+    <string name="scheduleTitle">Расписание</string>
+    <string name="inDevelop">В разработке..</string>
+    <string name="bookTitle">Журналы</string>
+    <string name="bookText">Нажмите сюда, чтобы читать</string>
+
 </resources>
