@@ -52,4 +52,5 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
     }
 
 
+
 }

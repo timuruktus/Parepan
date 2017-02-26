@@ -14,6 +14,7 @@ public class BookFragment extends BaseFragment {
 
     public View rootView;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              Bundle savedInstanceState) {

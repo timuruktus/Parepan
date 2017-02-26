@@ -1,25 +1,22 @@
 package ru.timuruktus.parepan.LoginPart;
 
-import android.app.Fragment;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
+import ru.timuruktus.parepan.BaseFragment;
+import ru.timuruktus.parepan.MainPart.EChangeToolbarVisible;
+import ru.timuruktus.parepan.MainPart.EOnFragmentChanged;
 import ru.timuruktus.parepan.R;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends BaseFragment {
 
-    public static final String APP_PREFERENCES = "mysettings";
-    public static final String APP_PREFERENCES_CITY = "City";
-    public static final String APP_PREFERENCES_SCHOOL = "School";
-    // If things goes right
-    public static final String APP_PREFERENCES_COUNTRY = "Country";
-    SharedPreferences settings;
     TextView loginChooseText;
 
     private static final String[] CITIES = {
@@ -34,10 +31,6 @@ public class LoginFragment extends Fragment {
         rootView =
                 inflater.inflate(R.layout.login_fragment, container, false);
 
-        settings = getActivity().getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        String city = settings.getString(APP_PREFERENCES_CITY, "");
-        String school = settings.getString(APP_PREFERENCES_SCHOOL, "");
-
         return rootView;
     }
 
@@ -49,6 +42,10 @@ public class LoginFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        //changeFonts(this.getView());
+        EventBus.getDefault().post(new EOnFragmentChanged(this));
+        EventBus.getDefault().post(new EChangeToolbarVisible(false));
+        Log.d("BaseFragment", "Event was sent");
     }
 
 }

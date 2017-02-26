@@ -25,13 +25,14 @@ public class MainActivity extends AppCompatActivity
 
     NavigationView navigationView;
     DrawerLayout drawer;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         MainPresenter mainPresenter = new MainPresenter(this);
         loadFragment();
@@ -90,7 +91,7 @@ public class MainActivity extends AppCompatActivity
             EventBus.getDefault().post(new EChangeFragment(new ScheduleFragment(), true));
         } else if (id == R.id.nav_main) {
             EventBus.getDefault().post(new EChangeFragment(new WelcomeFragment(), true));
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_login) {
 
         } else if (id == R.id.nav_share) {
 

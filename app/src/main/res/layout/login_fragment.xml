@@ -6,22 +6,6 @@
     android:layout_height="match_parent">
 
 
-    <TextView
-        android:text="@string/app_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/loginChooseText"
-        android:layout_marginTop="43dp"
-        android:textAlignment="center"
-        android:textSize="56sp"
-        android:textColor="@color/hint"
-        android:typeface="serif"
-        android:textStyle="normal|bold|italic"
-        android:fontFamily="cursive"
-        android:background="@drawable/textview_style"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
     <fr.ganfra.materialspinner.MaterialSpinner
         android:id="@+id/spinner"
         android:layout_width="fill_parent"
@@ -44,5 +28,28 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="92dp"
         android:layout_height="50dp" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loginChooseText"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView2" />
+
+    <TextView
+        android:text="@string/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginChooseText"
+        android:textAlignment="center"
+        android:textSize="56sp"
+        android:textColor="@color/hint"
+        android:typeface="serif"
+        android:textStyle="normal|bold|italic"
+        android:fontFamily="cursive"
+        android:background="@drawable/textview_style"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

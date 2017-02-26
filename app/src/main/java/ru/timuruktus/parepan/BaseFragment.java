@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import ru.timuruktus.parepan.MainPart.EChangeToolbarVisible;
 import ru.timuruktus.parepan.MainPart.EOnFragmentChanged;
 
 
@@ -17,8 +18,10 @@ public class BaseFragment extends Fragment {
     @Override
     public void onResume(){
         super.onResume();
+        //changeFonts(this.getView());
         EventBus.getDefault().post(new EOnFragmentChanged(this));
-        Log.d("mytag", "event was sent");
+        EventBus.getDefault().post(new EChangeToolbarVisible(true));
+        Log.d("BaseFragment", "Event was sent");
     }
 
 

@@ -6,10 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.greenrobot.eventbus.EventBus;
-
 import ru.timuruktus.parepan.BaseFragment;
-import ru.timuruktus.parepan.MainPart.EOnFragmentChanged;
 import ru.timuruktus.parepan.R;
 
 public class ScheduleFragment extends BaseFragment {
@@ -22,7 +19,6 @@ public class ScheduleFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
         rootView =
                 inflater.inflate(R.layout.schedule_fragment, container, false);
-        EventBus.getDefault().post(new EOnFragmentChanged(this));
 
         return rootView;
     }
