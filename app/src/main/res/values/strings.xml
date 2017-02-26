@@ -6,11 +6,15 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Настройки</string>
+    <string name="continue_action">Продолжить</string>
 
     // [FOR LOGIN ACTIVITY]
     <string name="login_but_confirm">Подтверждаю</string>
     <string name="login_text_city">Выберите ваш город:</string>
     <string name="login_text_school">Выберите вашу школу:</string>
+    <string name="login_text_title">Пожалуйста, выберите школу и город</string>
+    <string name="login_floating_city">Спасибо, вы выбрали город</string>
+    <string name="login_floating_school">Спасибо, вы выбрали школу</string>
 
     // [FOR WELCOME FRAGMENT]
     <string name="scheduleTitle">Расписание</string>
