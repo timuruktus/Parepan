@@ -47,4 +47,13 @@ public class BaseFragment extends Fragment {
             //Root view is null
         }
     }
+
+    public void enableView(View v, boolean enable){
+        v.setEnabled(enable);
+        if(enable){
+            v.setAlpha(1);
+        }else{
+            v.setAlpha(0);
+        }
+    }
 }

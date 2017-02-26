@@ -25,9 +25,9 @@ public class MainPresenter {
     public static final String APP_PREFERENCES = "mysettings";
     public static final String APP_PREFERENCES_CITY = "City";
     public static final String APP_PREFERENCES_SCHOOL = "School";
-    SharedPreferences settings;
+    private SharedPreferences settings;
 
-    public MainPresenter(MainActivity mainActivity){
+    MainPresenter(MainActivity mainActivity){
         this.mainActivity = mainActivity;
         EventBus.getDefault().register(this);
     }
@@ -44,6 +44,8 @@ public class MainPresenter {
         if(isJoined() && (fragment instanceof BookFragment || fragment instanceof ScheduleFragment)) {
             fragmentTransaction.replace(R.id.fragmentContainer, fragment);
         }else if (!isJoined() && (fragment instanceof BookFragment || fragment instanceof ScheduleFragment)){
+            fragmentTransaction.replace(R.id.fragmentContainer, new LoginFragment());
+        }else if(fragment instanceof LoginFragment){
             fragmentTransaction.replace(R.id.fragmentContainer, new LoginFragment());
         }
         fragmentTransaction.setTransition(TRANSIT_FRAGMENT_FADE);
@@ -72,9 +74,7 @@ public class MainPresenter {
     private boolean isJoined(){
         settings = mainActivity.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         String city = settings.getString(APP_PREFERENCES_CITY, "");
-        String school = settings.getString(APP_PREFERENCES_SCHOOL, "");
-        if(city.equals("")) return false;
-        return true;
+        return !city.equals("");
     }
 
     private void changeToolbarVisibility(boolean visible){

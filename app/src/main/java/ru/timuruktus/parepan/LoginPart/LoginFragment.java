@@ -6,11 +6,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -24,17 +23,16 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     MaterialSpinner citySpinner, schoolSpinner;
     Button continueButton;
-
+    public View rootView;
+    String city, school;
     private static final String[] CITIES = {
             "Моего города нет в списке", "Екатеринбург"};
     private static final String[] SCHOOLS_EKB = {
             "Моей школы нет в списке", "Гимназия №177"};
-    private static final String[] SCHOOLS_EMPTY = {
+    private static final String[] SCHOOLS_NO = {
             "Моей школы нет в списке"};
+    private static final String[] SCHOOLS_EMPTY = {};
 
-    public View rootView;
-    String city, school;
-    Animation animation;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -42,7 +40,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         rootView =
                 inflater.inflate(R.layout.login_fragment, container, false);
-        animation = AnimationUtils.loadAnimation(rootView.getContext(), R.anim.alpha_to);
+        LoginPresenter loginPresenter = new LoginPresenter(this);
         loadAllElements();
         return rootView;
     }
@@ -64,13 +62,17 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                 if(selectedItemPosition != -1) {
                     city = citySpinner.getSelectedItem().toString();
                     loadSecondSpinner(city);
-                    schoolSpinner.setAlpha(1);
-                    Log.d("LoginFragment", "firstItemSelected");
+                    enableView(schoolSpinner, true);
+                }else{
+                    loadSecondSpinner("");
+                    city = "";
+                    enableView(schoolSpinner, false);
+                    enableView(continueButton, false);
+                    school = "";
                 }
             }
 
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         continueButton.setOnClickListener(this);
@@ -79,13 +81,14 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     private void loadSecondSpinner(String city){
         ArrayAdapter<String> schoolAdapter;
-        if (city.equals("Екатеринбург")) {
+        if(city.equals("Екатеринбург")) {
             schoolAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, SCHOOLS_EKB);
         }else if(city.equals("Моего города нет в списке")){
-            schoolAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, SCHOOLS_EMPTY);
+            schoolAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, SCHOOLS_NO);
         }else{
-            return;
+            schoolAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, SCHOOLS_EMPTY);
         }
+
         schoolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         schoolSpinner.setAdapter(schoolAdapter);
         schoolSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -93,13 +96,14 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                                        View itemSelected, int selectedItemPosition, long selectedId) {
                 if(selectedItemPosition != -1) {
                     school = schoolSpinner.getSelectedItem().toString();
-                    continueButton.setAlpha(1);
-                    Log.d("LoginFragment", "secondItemSelected");
+                    enableView(continueButton, true);
+                }else{
+                    enableView(continueButton, false);
+                    school = "";
                 }
             }
 
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
@@ -114,7 +118,17 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        city = citySpinner.getSelectedItem().toString();
-        school = schoolSpinner.getSelectedItem().toString();
+        int id = v.getId();
+
+        if(id == R.id.continueButton){
+            EventBus.getDefault().post(new ELoginConfirmed(city,school, this));
+        }
     }
+
+    //ELoginConfirmed
+    public void eventCallback(){
+        Toast.makeText(rootView.getContext(), R.string.login_your_data, Toast.LENGTH_LONG).show();
+    }
+
+
 }

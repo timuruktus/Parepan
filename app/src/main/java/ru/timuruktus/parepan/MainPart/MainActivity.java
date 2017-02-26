@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import org.greenrobot.eventbus.EventBus;
 
 import ru.timuruktus.parepan.BookPart.BookFragment;
+import ru.timuruktus.parepan.LoginPart.LoginFragment;
 import ru.timuruktus.parepan.R;
 import ru.timuruktus.parepan.SchedulePart.ScheduleFragment;
 import ru.timuruktus.parepan.WelcomePart.WelcomeFragment;
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_main) {
             EventBus.getDefault().post(new EChangeFragment(new WelcomeFragment(), true));
         } else if (id == R.id.nav_login) {
-
+            EventBus.getDefault().post(new EChangeFragment(new LoginFragment(), true));
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
