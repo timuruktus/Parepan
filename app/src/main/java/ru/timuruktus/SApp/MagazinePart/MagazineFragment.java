@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ramotion.foldingcell.FoldingCell;
+
 import org.greenrobot.eventbus.EventBus;
 
 import ru.timuruktus.SApp.BaseEvent;
@@ -26,6 +28,7 @@ public class MagazineFragment extends BaseFragment {
                 inflater.inflate(R.layout.magazine_fragment, container, false);
         MagazinePresenter magazinePresenter = new MagazinePresenter(this);
         EventBus.getDefault().post(new EGetUserLoginInfo());
+        initAllViews();
         return rootView;
     }
 
@@ -35,4 +38,15 @@ public class MagazineFragment extends BaseFragment {
 
         }
     }
+
+    private void initAllViews(){
+        final FoldingCell fc = (FoldingCell) rootView.findViewById(R.id.folding_cell);
+        fc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fc.toggle(false);
+            }
+        });
+    }
+
 }
