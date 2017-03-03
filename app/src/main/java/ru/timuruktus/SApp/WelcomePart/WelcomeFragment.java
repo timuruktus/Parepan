@@ -2,10 +2,10 @@ package ru.timuruktus.SApp.WelcomePart;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -20,7 +20,7 @@ import ru.timuruktus.SApp.SchedulePart.ScheduleFragment;
 public class WelcomeFragment extends BaseFragment implements View.OnClickListener {
 
     public View rootView;
-    public CardView bookCard, scheduleCard;
+    public RelativeLayout bookCard, scheduleCard;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -34,9 +34,9 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
     }
 
     private void initAllViews(){
-        bookCard = (CardView) rootView.findViewById(R.id.bookCard);
+        bookCard = (RelativeLayout) rootView.findViewById(R.id.bookCard);
         bookCard.setOnClickListener(this);
-        scheduleCard = (CardView) rootView.findViewById(R.id.scheduleCard);
+        scheduleCard = (RelativeLayout) rootView.findViewById(R.id.scheduleCard);
         scheduleCard.setOnClickListener(this);
     }
 
