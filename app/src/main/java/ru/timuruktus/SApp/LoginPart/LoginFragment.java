@@ -1,4 +1,4 @@
-package ru.timuruktus.parepan.LoginPart;
+package ru.timuruktus.SApp.LoginPart;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,10 +14,11 @@ import android.widget.Toast;
 import org.greenrobot.eventbus.EventBus;
 
 import fr.ganfra.materialspinner.MaterialSpinner;
-import ru.timuruktus.parepan.BaseFragment;
-import ru.timuruktus.parepan.MainPart.EChangeToolbarVisible;
-import ru.timuruktus.parepan.MainPart.EOnFragmentChanged;
-import ru.timuruktus.parepan.R;
+import ru.timuruktus.SApp.BaseEvent;
+import ru.timuruktus.SApp.BaseFragment;
+import ru.timuruktus.SApp.MainPart.EChangeToolbarVisible;
+import ru.timuruktus.SApp.MainPart.EOnFragmentChanged;
+import ru.timuruktus.SApp.R;
 
 public class LoginFragment extends BaseFragment implements View.OnClickListener {
 
@@ -28,7 +29,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private static final String[] CITIES = {
             "Моего города нет в списке", "Екатеринбург"};
     private static final String[] SCHOOLS_EKB = {
-            "Моей школы нет в списке", "Гимназия №177"};
+            "Моей школы нет в списке", "№177"};
     private static final String[] SCHOOLS_NO = {
             "Моей школы нет в списке"};
     private static final String[] SCHOOLS_EMPTY = {};
@@ -49,10 +50,13 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         citySpinner = (MaterialSpinner) rootView.findViewById(R.id.citySpinner);
         continueButton = (Button) rootView.findViewById(R.id.continueButton);
         schoolSpinner = (MaterialSpinner) rootView.findViewById(R.id.schoolSpinner);
-
         continueButton.setAlpha(0);
         schoolSpinner.setAlpha(0);
+        continueButton.setOnClickListener(this);
+        loadFirstSpinner();
+    }
 
+    private void loadFirstSpinner(){
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, CITIES);
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySpinner.setAdapter(cityAdapter);
@@ -64,7 +68,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
                     loadSecondSpinner(city);
                     enableView(schoolSpinner, true);
                 }else{
-                    loadSecondSpinner("");
                     city = "";
                     enableView(schoolSpinner, false);
                     enableView(continueButton, false);
@@ -74,10 +77,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
 
             public void onNothingSelected(AdapterView<?> parent) {}
         });
-
-        continueButton.setOnClickListener(this);
-
     }
+
 
     private void loadSecondSpinner(String city){
         ArrayAdapter<String> schoolAdapter;
@@ -126,7 +127,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     }
 
     //ELoginConfirmed
-    public void eventCallback(){
+    @Override
+    public void eventCallback(BaseEvent event){
         Toast.makeText(rootView.getContext(), R.string.login_your_data, Toast.LENGTH_LONG).show();
     }
 

@@ -1,4 +1,4 @@
-package ru.timuruktus.parepan.WelcomePart;
+package ru.timuruktus.SApp.WelcomePart;
 
 public class WelcomePresenter {
 

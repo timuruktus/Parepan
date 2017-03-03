@@ -1,8 +1,10 @@
-package ru.timuruktus.parepan.MainPart;
+package ru.timuruktus.SApp.MainPart;
 
 import android.app.Fragment;
 
-public class EChangeFragment {
+import ru.timuruktus.SApp.BaseEvent;
+
+public class EChangeFragment implements BaseEvent {
 
 
 
@@ -28,5 +30,10 @@ public class EChangeFragment {
 
     public void setAddToBackStack(boolean addToBackStack) {
         this.addToBackStack = addToBackStack;
+    }
+
+    @Override
+    public void callback() {
+
     }
 }

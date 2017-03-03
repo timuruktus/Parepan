@@ -1,4 +1,4 @@
-package ru.timuruktus.parepan.LoginPart;
+package ru.timuruktus.SApp.LoginPart;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -8,12 +8,12 @@ import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import ru.timuruktus.parepan.MainPart.EChangeFragment;
-import ru.timuruktus.parepan.WelcomePart.WelcomeFragment;
+import ru.timuruktus.SApp.MainPart.EChangeFragment;
+import ru.timuruktus.SApp.WelcomePart.WelcomeFragment;
 
-import static ru.timuruktus.parepan.MainPart.MainPresenter.APP_PREFERENCES;
-import static ru.timuruktus.parepan.MainPart.MainPresenter.APP_PREFERENCES_CITY;
-import static ru.timuruktus.parepan.MainPart.MainPresenter.APP_PREFERENCES_SCHOOL;
+import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES;
+import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES_CITY;
+import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES_SCHOOL;
 
 public class LoginPresenter {
 
@@ -38,5 +38,7 @@ public class LoginPresenter {
         Log.d("LoginPresenter", settings.getString(APP_PREFERENCES_SCHOOL, ""));
         EventBus.getDefault().post(new EChangeFragment(new WelcomeFragment(), false));
     }
+
+
 
 }

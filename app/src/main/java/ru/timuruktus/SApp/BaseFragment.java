@@ -1,4 +1,4 @@
-package ru.timuruktus.parepan;
+package ru.timuruktus.SApp;
 
 import android.app.Fragment;
 import android.graphics.Typeface;
@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import ru.timuruktus.parepan.MainPart.EChangeToolbarVisible;
-import ru.timuruktus.parepan.MainPart.EOnFragmentChanged;
+import ru.timuruktus.SApp.MainPart.EChangeToolbarVisible;
+import ru.timuruktus.SApp.MainPart.EOnFragmentChanged;
 
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onResume(){
@@ -56,4 +56,6 @@ public class BaseFragment extends Fragment {
             v.setAlpha(0);
         }
     }
+
+    public abstract void eventCallback(BaseEvent event);
 }

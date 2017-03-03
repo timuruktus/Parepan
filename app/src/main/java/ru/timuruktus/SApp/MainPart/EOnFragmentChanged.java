@@ -1,8 +1,10 @@
-package ru.timuruktus.parepan.MainPart;
+package ru.timuruktus.SApp.MainPart;
 
 import android.app.Fragment;
 
-public class EOnFragmentChanged {
+import ru.timuruktus.SApp.BaseEvent;
+
+public class EOnFragmentChanged implements BaseEvent {
 
     private Fragment fragment;
 
@@ -17,5 +19,10 @@ public class EOnFragmentChanged {
 
     public void setFragment(Fragment fragment) {
         this.fragment = fragment;
+    }
+
+    @Override
+    public void callback() {
+
     }
 }

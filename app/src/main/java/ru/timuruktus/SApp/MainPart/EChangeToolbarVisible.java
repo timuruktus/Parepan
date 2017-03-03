@@ -1,6 +1,8 @@
-package ru.timuruktus.parepan.MainPart;
+package ru.timuruktus.SApp.MainPart;
 
-public class EChangeToolbarVisible {
+import ru.timuruktus.SApp.BaseEvent;
+
+public class EChangeToolbarVisible implements BaseEvent {
 
     public boolean isVisible() {
         return visible;
@@ -10,5 +12,10 @@ public class EChangeToolbarVisible {
 
     public EChangeToolbarVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    @Override
+    public void callback() {
+
     }
 }

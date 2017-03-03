@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.timuruktus.parepan">
+    package="ru.timuruktus.SApp">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainPart.MainActivity"
+            android:name="ru.timuruktus.SApp.MainPart.MainActivity"
             android:label="@string/title_activity_main"
-            android:parentActivityName=".MainPart.MainActivity"
+            android:parentActivityName="ru.timuruktus.SApp.MainPart.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

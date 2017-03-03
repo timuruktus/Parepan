@@ -1,4 +1,4 @@
-package ru.timuruktus.parepan.WelcomePart;
+package ru.timuruktus.SApp.WelcomePart;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,11 +9,12 @@ import android.view.ViewGroup;
 
 import org.greenrobot.eventbus.EventBus;
 
-import ru.timuruktus.parepan.BaseFragment;
-import ru.timuruktus.parepan.BookPart.BookFragment;
-import ru.timuruktus.parepan.MainPart.EChangeFragment;
-import ru.timuruktus.parepan.R;
-import ru.timuruktus.parepan.SchedulePart.ScheduleFragment;
+import ru.timuruktus.SApp.BaseEvent;
+import ru.timuruktus.SApp.BaseFragment;
+import ru.timuruktus.SApp.MagazinePart.MagazineFragment;
+import ru.timuruktus.SApp.MainPart.EChangeFragment;
+import ru.timuruktus.SApp.R;
+import ru.timuruktus.SApp.SchedulePart.ScheduleFragment;
 
 
 public class WelcomeFragment extends BaseFragment implements View.OnClickListener {
@@ -44,7 +45,7 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
         int id = v.getId();
 
         if(id == R.id.bookCard){
-            EventBus.getDefault().post(new EChangeFragment(new BookFragment(), true));
+            EventBus.getDefault().post(new EChangeFragment(new MagazineFragment(), true));
         }else if (id == R.id.scheduleCard){
             EventBus.getDefault().post(new EChangeFragment(new ScheduleFragment(), true));
         }
@@ -52,5 +53,8 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
     }
 
 
+    @Override
+    public void eventCallback(BaseEvent event) {
 
+    }
 }

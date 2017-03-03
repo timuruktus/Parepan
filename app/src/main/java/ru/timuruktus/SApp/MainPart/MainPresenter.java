@@ -1,21 +1,19 @@
-package ru.timuruktus.parepan.MainPart;
+package ru.timuruktus.SApp.MainPart;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
-import android.view.View;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import ru.timuruktus.parepan.BookPart.BookFragment;
-import ru.timuruktus.parepan.LoginPart.LoginFragment;
-import ru.timuruktus.parepan.R;
-import ru.timuruktus.parepan.SchedulePart.ScheduleFragment;
-import ru.timuruktus.parepan.WelcomePart.WelcomeFragment;
+import ru.timuruktus.SApp.LoginPart.LoginFragment;
+import ru.timuruktus.SApp.MagazinePart.MagazineFragment;
+import ru.timuruktus.SApp.R;
+import ru.timuruktus.SApp.SchedulePart.ScheduleFragment;
+import ru.timuruktus.SApp.WelcomePart.WelcomeFragment;
 
 import static android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE;
 
@@ -41,9 +39,9 @@ public class MainPresenter {
         if(event.isAddToBackStack()) {
             fragmentTransaction.addToBackStack(null);
         }
-        if(isJoined() && (fragment instanceof BookFragment || fragment instanceof ScheduleFragment)) {
+        if(isJoined() && (fragment instanceof MagazineFragment || fragment instanceof ScheduleFragment)) {
             fragmentTransaction.replace(R.id.fragmentContainer, fragment);
-        }else if (!isJoined() && (fragment instanceof BookFragment || fragment instanceof ScheduleFragment)){
+        }else if (!isJoined() && (fragment instanceof MagazineFragment || fragment instanceof ScheduleFragment)){
             fragmentTransaction.replace(R.id.fragmentContainer, new LoginFragment());
         }else if(fragment instanceof LoginFragment){
             fragmentTransaction.replace(R.id.fragmentContainer, new LoginFragment());
@@ -55,9 +53,8 @@ public class MainPresenter {
 
     @Subscribe
     public void changeNavItem(EOnFragmentChanged event){
-        if(event.getFragment() instanceof BookFragment){
+        if(event.getFragment() instanceof MagazineFragment){
             mainActivity.navigationView.setCheckedItem(R.id.nav_book);
-            Log.d("mytag", "book event");
         }else if(event.getFragment() instanceof ScheduleFragment){
             mainActivity.navigationView.setCheckedItem(R.id.nav_schedule);
         }else if(event.getFragment() instanceof WelcomeFragment){
@@ -79,9 +76,10 @@ public class MainPresenter {
 
     private void changeToolbarVisibility(boolean visible){
         if(visible){
-            mainActivity.toolbar.setVisibility(View.VISIBLE);
+            mainActivity.getSupportActionBar().show();
         }else{
-            mainActivity.toolbar.setVisibility(View.INVISIBLE);
+            mainActivity.getSupportActionBar().hide();
+
         }
     }
 
@@ -89,4 +87,6 @@ public class MainPresenter {
     public void setToolbarInvisible(EChangeToolbarVisible event){
         changeToolbarVisibility(event.isVisible());
     }
+
+
 }

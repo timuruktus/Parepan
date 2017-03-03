@@ -1,4 +1,4 @@
-package ru.timuruktus.parepan.MainPart;
+package ru.timuruktus.SApp.MainPart;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -13,13 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.backendless.Backendless;
+
 import org.greenrobot.eventbus.EventBus;
 
-import ru.timuruktus.parepan.BookPart.BookFragment;
-import ru.timuruktus.parepan.LoginPart.LoginFragment;
-import ru.timuruktus.parepan.R;
-import ru.timuruktus.parepan.SchedulePart.ScheduleFragment;
-import ru.timuruktus.parepan.WelcomePart.WelcomeFragment;
+import ru.timuruktus.SApp.LoginPart.LoginFragment;
+import ru.timuruktus.SApp.MagazinePart.MagazineFragment;
+import ru.timuruktus.SApp.R;
+import ru.timuruktus.SApp.SchedulePart.ScheduleFragment;
+import ru.timuruktus.SApp.WelcomePart.WelcomeFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -27,11 +29,15 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
     DrawerLayout drawer;
     Toolbar toolbar;
+    private final String YOUR_APP_ID = "E8F88DD6-9964-2F7D-FF5C-0443B5ABFD00";
+    private final String YOUR_SECRET_KEY = "7C1D5112-2D8B-6EA0-FFE3-9A0498991700";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        String appVersion = "v1";
+        Backendless.initApp(this, YOUR_APP_ID, YOUR_SECRET_KEY, appVersion);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,7 +52,6 @@ public class MainActivity extends AppCompatActivity
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
     }
 
     @Override
@@ -87,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_book) {
-            EventBus.getDefault().post(new EChangeFragment(new BookFragment(), true));
+            EventBus.getDefault().post(new EChangeFragment(new MagazineFragment(), true));
         } else if (id == R.id.nav_schedule) {
             EventBus.getDefault().post(new EChangeFragment(new ScheduleFragment(), true));
         } else if (id == R.id.nav_main) {
