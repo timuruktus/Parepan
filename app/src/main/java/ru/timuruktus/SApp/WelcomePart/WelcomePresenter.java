@@ -1,6 +1,9 @@
 package ru.timuruktus.SApp.WelcomePart;
 
-public class WelcomePresenter {
+import ru.timuruktus.SApp.BaseEvent;
+import ru.timuruktus.SApp.BasePresenter;
+
+public class WelcomePresenter implements BasePresenter {
 
     private WelcomeFragment welcomeFragment;
 
@@ -10,7 +13,8 @@ public class WelcomePresenter {
     }
 
 
+    @Override
+    public void eventCallback(BaseEvent event) {
 
-
-
+    }
 }

@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import ru.timuruktus.SApp.BaseEvent;
+import ru.timuruktus.SApp.BasePresenter;
 import ru.timuruktus.SApp.LoginPart.LoginFragment;
 import ru.timuruktus.SApp.MagazinePart.MagazineFragment;
 import ru.timuruktus.SApp.R;
@@ -17,7 +19,7 @@ import ru.timuruktus.SApp.WelcomePart.WelcomeFragment;
 
 import static android.app.FragmentTransaction.TRANSIT_FRAGMENT_FADE;
 
-public class MainPresenter {
+public class MainPresenter implements BasePresenter {
 
     private MainActivity mainActivity;
     public static final String APP_PREFERENCES = "mysettings";
@@ -89,4 +91,8 @@ public class MainPresenter {
     }
 
 
+    @Override
+    public void eventCallback(BaseEvent event) {
+
+    }
 }

@@ -8,6 +8,8 @@ import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import ru.timuruktus.SApp.BaseEvent;
+import ru.timuruktus.SApp.BasePresenter;
 import ru.timuruktus.SApp.MainPart.EChangeFragment;
 import ru.timuruktus.SApp.WelcomePart.WelcomeFragment;
 
@@ -15,7 +17,7 @@ import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES;
 import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES_CITY;
 import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES_SCHOOL;
 
-public class LoginPresenter {
+public class LoginPresenter implements BasePresenter {
 
     private Fragment fragment;
     SharedPreferences settings;
@@ -40,5 +42,8 @@ public class LoginPresenter {
     }
 
 
+    @Override
+    public void eventCallback(BaseEvent event) {
 
+    }
 }

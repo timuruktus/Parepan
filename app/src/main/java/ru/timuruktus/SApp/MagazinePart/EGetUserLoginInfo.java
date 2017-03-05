@@ -4,6 +4,7 @@ package ru.timuruktus.SApp.MagazinePart;
 import ru.timuruktus.SApp.BaseEvent;
 import ru.timuruktus.SApp.BaseFragment;
 
+@Deprecated
 public class EGetUserLoginInfo implements BaseEvent {
 
     private String city, school;
