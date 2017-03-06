@@ -42,16 +42,20 @@ public class MagazinePresenter implements BasePresenter {
     @Subscribe
     public void getMagazines(EGetMagazines event){
         BackendlessMagazines backendlessMagazines = new BackendlessMagazines();
-        String whereClause = "city = '" + getCity() + "' and school = '"
-                + getSchool() + "'";
         this.eGetMagazines = event;
-        EventBus.getDefault().post(new EGetMagazinesList(whereClause, this));
+        EventBus.getDefault().post(new EGetMagazinesList(getWhereClause(), this));
+    }
+
+    private String getWhereClause(){
+        return "city = '" + getCity() + "' and school = '"
+                + getSchool() + "'";
     }
 
     @Override
     public void eventCallback(BaseEvent event) {
         if(event instanceof EGetMagazinesList){
-            List<Magazine> magazineList = ((EGetMagazinesList) event).getMagazines();
+            EGetMagazines currentEvent = (EGetMagazines) event;
+            List<Magazine> magazineList = currentEvent.getMagazines();
             ArrayList<Magazine> magazineArrayList = (ArrayList<Magazine>) magazineList;
             eGetMagazines.setMagazines(magazineArrayList);
             eGetMagazines.callback();

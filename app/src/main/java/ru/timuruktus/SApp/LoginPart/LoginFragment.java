@@ -33,6 +33,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private static final String[] SCHOOLS_NO = {
             "Моей школы нет в списке"};
     private static final String[] SCHOOLS_EMPTY = {};
+    private final int ALPHA_INVISIBLE = 0;
+    private final int FIRST_SPINNER_ITEM_POSITION = -1;
+    private final boolean DISABLE = false;
+    private final boolean ENABLE = true;
 
 
     @Override
@@ -50,63 +54,76 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         citySpinner = (MaterialSpinner) rootView.findViewById(R.id.citySpinner);
         continueButton = (Button) rootView.findViewById(R.id.continueButton);
         schoolSpinner = (MaterialSpinner) rootView.findViewById(R.id.schoolSpinner);
-        continueButton.setAlpha(0);
-        schoolSpinner.setAlpha(0);
+        continueButton.setAlpha(ALPHA_INVISIBLE);
+        schoolSpinner.setAlpha(ALPHA_INVISIBLE);
         continueButton.setOnClickListener(this);
         loadFirstSpinner();
     }
 
     private void loadFirstSpinner(){
-        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, CITIES);
+        ArrayAdapter<String> cityAdapter = createCitySpinnerAdapter();
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySpinner.setAdapter(cityAdapter);
-        citySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        citySpinner.setOnItemSelectedListener(createFirstSpinnerListener());
+    }
+
+    private ArrayAdapter<String> createCitySpinnerAdapter(){
+        return new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, CITIES);
+    }
+
+    private AdapterView.OnItemSelectedListener createFirstSpinnerListener(){
+        return new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
-                                       View itemSelected, int selectedItemPosition, long selectedId) {
-                if(selectedItemPosition != -1) {
+                    View itemSelected, int selectedItemPosition, long selectedId) {
+                if(selectedItemPosition != FIRST_SPINNER_ITEM_POSITION) {
                     city = citySpinner.getSelectedItem().toString();
                     loadSecondSpinner(city);
-                    enableView(schoolSpinner, true);
+                    enableView(schoolSpinner, ENABLE);
                 }else{
-                    city = "";
-                    enableView(schoolSpinner, false);
-                    enableView(continueButton, false);
-                    school = "";
+                    unsetSetting(city);
+                    unsetSetting(school);
+                    enableView(schoolSpinner, DISABLE);
+                    enableView(continueButton, DISABLE);
                 }
             }
 
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
+        public void onNothingSelected(AdapterView<?> parent) {}
+        };
     }
 
 
     private void loadSecondSpinner(String city){
-        ArrayAdapter<String> schoolAdapter;
-        if(city.equals("Екатеринбург")) {
-            schoolAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, SCHOOLS_EKB);
-        }else if(city.equals("Моего города нет в списке")){
-            schoolAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, SCHOOLS_NO);
-        }else{
-            schoolAdapter = new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, SCHOOLS_EMPTY);
-        }
-
+        ArrayAdapter<String> schoolAdapter = setAdapterItems(city);
         schoolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         schoolSpinner.setAdapter(schoolAdapter);
-        schoolSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        schoolSpinner.setOnItemSelectedListener(createSecondSpinnerListener());
+    }
+
+    private AdapterView.OnItemSelectedListener createSecondSpinnerListener(){
+        return new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent,
                                        View itemSelected, int selectedItemPosition, long selectedId) {
-                if(selectedItemPosition != -1) {
+                if(selectedItemPosition != FIRST_SPINNER_ITEM_POSITION) {
                     school = schoolSpinner.getSelectedItem().toString();
-                    enableView(continueButton, true);
+                    enableView(continueButton, ENABLE);
                 }else{
-                    enableView(continueButton, false);
-                    school = "";
+                    enableView(continueButton, DISABLE);
+                    unsetSetting(school);
                 }
             }
 
             public void onNothingSelected(AdapterView<?> parent) {}
-        });
+        }
     }
+
+    private ArrayAdapter<String> setAdapterItems(String city){
+        if(city.equals("Екатеринбург")){
+            return new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, SCHOOLS_EKB);
+        }else{
+            return new ArrayAdapter<>(rootView.getContext(), android.R.layout.simple_spinner_item, SCHOOLS_NO);
+        }
+    }
+
 
     @Override
     public void onResume(){
@@ -130,6 +147,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void eventCallback(BaseEvent event){
         Toast.makeText(rootView.getContext(), R.string.login_your_data, Toast.LENGTH_LONG).show();
+    }
+
+    private void unsetSetting(String setting){
+        setting = "";
     }
 
 

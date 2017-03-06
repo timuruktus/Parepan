@@ -36,7 +36,8 @@ public class MagazineFragment extends BaseFragment {
     @Override
     public void eventCallback(BaseEvent event) {
         if(event instanceof EGetMagazines){
-            MagazineCellAdapter adapter = new MagazineCellAdapter(magazinesListView.getContext(), ((EGetMagazines) event).getMagazines());
+            EGetMagazines currentEvent = (EGetMagazines) event;
+            MagazineCellAdapter adapter = new MagazineCellAdapter(magazinesListView.getContext(), currentEvent.getMagazines());
             magazinesListView.setAdapter(adapter);
         }
     }

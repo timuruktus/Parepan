@@ -31,13 +31,13 @@ public class MainActivity extends AppCompatActivity
     Toolbar toolbar;
     private final String YOUR_APP_ID = "E8F88DD6-9964-2F7D-FF5C-0443B5ABFD00";
     private final String YOUR_SECRET_KEY = "7C1D5112-2D8B-6EA0-FFE3-9A0498991700";
+    private final String APP_VERSION = "v1";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String appVersion = "v1";
-        Backendless.initApp(this, YOUR_APP_ID, YOUR_SECRET_KEY, appVersion);
+        Backendless.initApp(this, YOUR_APP_ID, YOUR_SECRET_KEY, APP_VERSION);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -119,4 +119,5 @@ public class MainActivity extends AppCompatActivity
         fragmentTransaction.replace(R.id.fragmentContainer, mainFragment);
         fragmentTransaction.commit();
     }
+
 }

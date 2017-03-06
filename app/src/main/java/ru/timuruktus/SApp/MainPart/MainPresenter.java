@@ -26,6 +26,7 @@ public class MainPresenter implements BasePresenter {
     public static final String APP_PREFERENCES_CITY = "City";
     public static final String APP_PREFERENCES_SCHOOL = "School";
     private SharedPreferences settings;
+    FragmentTransaction fragmentTransaction;
 
     MainPresenter(MainActivity mainActivity){
         this.mainActivity = mainActivity;
@@ -37,10 +38,17 @@ public class MainPresenter implements BasePresenter {
         Fragment fragment = event.getFragment();
         FragmentManager fragmentManager = mainActivity.getFragmentManager();
         fragmentManager.popBackStack();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction = fragmentManager.beginTransaction();
         if(event.isAddToBackStack()) {
             fragmentTransaction.addToBackStack(null);
         }
+        setNewFragment(fragment);
+        fragmentTransaction.setTransition(TRANSIT_FRAGMENT_FADE);
+        changeToolbarVisibility(true);
+        fragmentTransaction.commit();
+    }
+
+    private void setNewFragment(Fragment fragment){
         if(isJoined() && (fragment instanceof MagazineFragment || fragment instanceof ScheduleFragment)) {
             fragmentTransaction.replace(R.id.fragmentContainer, fragment);
         }else if (!isJoined() && (fragment instanceof MagazineFragment || fragment instanceof ScheduleFragment)){
@@ -48,9 +56,6 @@ public class MainPresenter implements BasePresenter {
         }else if(fragment instanceof LoginFragment){
             fragmentTransaction.replace(R.id.fragmentContainer, new LoginFragment());
         }
-        fragmentTransaction.setTransition(TRANSIT_FRAGMENT_FADE);
-        changeToolbarVisibility(true);
-        fragmentTransaction.commit();
     }
 
     @Subscribe
