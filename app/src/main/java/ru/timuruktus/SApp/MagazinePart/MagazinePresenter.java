@@ -54,7 +54,7 @@ public class MagazinePresenter implements BasePresenter {
     @Override
     public void eventCallback(BaseEvent event) {
         if(event instanceof EGetMagazinesList){
-            EGetMagazines currentEvent = (EGetMagazines) event;
+            EGetMagazinesList currentEvent = (EGetMagazinesList) event;
             List<Magazine> magazineList = currentEvent.getMagazines();
             ArrayList<Magazine> magazineArrayList = (ArrayList<Magazine>) magazineList;
             eGetMagazines.setMagazines(magazineArrayList);
