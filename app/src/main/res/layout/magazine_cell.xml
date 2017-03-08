@@ -110,12 +110,12 @@
             android:alpha="0" />
 
         <ProgressBar
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+objectId/downloadText"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:objectId="@+objectId/progressBar" />
+            android:id="@+id/downloadBar" />
 
     </RelativeLayout>
 
