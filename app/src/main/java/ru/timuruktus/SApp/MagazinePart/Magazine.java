@@ -7,27 +7,36 @@ public class Magazine {
     private String city;
     private String school;
     private String textUrl;
+    private String pdfUrl;
     private String title;
     private String titleImage;
     private String createdTime;
     private String preview;
     private String titleSchool;
-    private Date date;
+    private Date created;
     private int viewsCount;
+    private boolean downloadedPDF;
+    private int objectId;
+    private boolean downloadedText;
 
     public Magazine() {}
 
     public Magazine(String textUrl, String title, String titleImage, String createdTime,
-                    int viewsCount, String titleSchool, Date date, String city, String school) {
+                    int viewsCount, String titleSchool, Date created, String city, String school,
+                    boolean downloadedPDF, int objectId, boolean downloadedText, String pdfUrl) {
         this.textUrl = textUrl;
         this.title = title;
         this.titleImage = titleImage;
         this.createdTime = createdTime;
         this.viewsCount = viewsCount;
         this.titleSchool = titleSchool;
-        this.date = date;
+        this.created = created;
         this.city = city;
         this.school = school;
+        this.downloadedPDF = downloadedPDF;
+        this.objectId = objectId;
+        this.downloadedText = downloadedText;
+        this.pdfUrl = pdfUrl;
     }
 
     public String getTextUrl() {
@@ -87,12 +96,12 @@ public class Magazine {
         this.titleSchool = titleSchool;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getСreated() {
+        return created;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setСreated(Date created) {
+        this.created = created;
     }
 
     public String getCity() {
@@ -110,6 +119,46 @@ public class Magazine {
     public void setSchool(String school) {
         this.school = school;
     }
+
+    public int getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(int objectId) {
+        this.objectId = objectId;
+    }
+
+    public boolean isDownloadedPDF() {
+        return downloadedPDF;
+    }
+
+    public void setDownloadedPDF(boolean downloadedPDF) {
+        this.downloadedPDF = downloadedPDF;
+    }
+
+    public boolean isDownloadedText() {
+        return downloadedText;
+    }
+
+    public void setDownloadedText(boolean downloadedText) {
+        this.downloadedText = downloadedText;
+    }
+
+    public String getPdfUrl() {
+        return pdfUrl;
+    }
+
+    public void setPdfUrl(String pdfUrl) {
+        this.pdfUrl = pdfUrl;
+    }
+
+
+
+
+
+
+
+
 
 
 

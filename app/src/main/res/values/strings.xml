@@ -32,9 +32,11 @@
     <string name="bookText">Нажмите сюда, чтобы читать</string>
 
     // [FOR MAGAZINES CELLS]
-    <string name="magazine_views">Просмотров</string>
-    <string name="magazine_download">Скачать</string>
+    <string name="magazine_downloads">Скачиваний: </string>
+    <string name="magazine_download_text">Скачать (Текст)</string>
     <string name="magazine_date">Опубликован</string>
+    <string name="magazine_download_pdf">Скачать (PDF)</string>
+    <string name="magazine_read">Читать</string>
 
 
 </resources>

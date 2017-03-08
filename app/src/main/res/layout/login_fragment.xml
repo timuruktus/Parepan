@@ -7,7 +7,7 @@
 
 
     <fr.ganfra.materialspinner.MaterialSpinner
-        android:id="@+id/citySpinner"
+        android:objectId="@+objectId/citySpinner"
         android:layout_width="match_parent"
         app:ms_hint="@string/login_text_city"
         app:ms_floatingLabelText="@string/login_floating_city"
@@ -19,7 +19,7 @@
         app:ms_arrowColor="@color/arrow"
         app:ms_arrowSize="16dp"
         app:ms_floatingLabelColor="@color/floating_label"
-        android:layout_below="@+id/loginChooseText"
+        android:layout_below="@+objectId/loginChooseText"
         android:layout_alignParentStart="true"
         android:layout_marginTop="92dp"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:text="@string/app_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/loginChooseText"
+        android:objectId="@+objectId/loginChooseText"
         android:textAlignment="center"
         android:textSize="56sp"
         android:textColor="@color/hint"
@@ -43,7 +43,7 @@
         android:layout_alignParentStart="true" />
 
     <fr.ganfra.materialspinner.MaterialSpinner
-        android:id="@+id/schoolSpinner"
+        android:objectId="@+objectId/schoolSpinner"
         android:layout_width="match_parent"
         app:ms_hint="@string/login_text_school"
         app:ms_floatingLabelText="@string/login_floating_school"
@@ -61,15 +61,15 @@
         app:ms_enableErrorLabel="true"
         app:ms_multiline="false"
         app:ms_alignLabels="true"
-        android:layout_below="@+id/citySpinner"
+        android:layout_below="@+objectId/citySpinner"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/loginChooseTitle"
+        android:objectId="@+objectId/loginChooseTitle"
         android:textAlignment="center"
-        android:layout_below="@+id/loginChooseText"
+        android:layout_below="@+objectId/loginChooseText"
         android:layout_alignParentStart="true"
         android:layout_marginTop="19dp"
         android:text="@string/login_text_title"
@@ -82,7 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="58dp"
-        android:id="@+id/continueButton"
+        android:objectId="@+objectId/continueButton"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_alignParentBottom="true"

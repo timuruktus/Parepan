@@ -113,7 +113,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
             }
 
             public void onNothingSelected(AdapterView<?> parent) {}
-        }
+        };
     }
 
     private ArrayAdapter<String> setAdapterItems(String city){

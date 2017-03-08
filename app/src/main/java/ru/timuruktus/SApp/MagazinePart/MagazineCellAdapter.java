@@ -1,113 +1,35 @@
 package ru.timuruktus.SApp.MagazinePart;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ramotion.foldingcell.FoldingCell;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import ru.timuruktus.SApp.R;
 
-/**
- * Simple example of ListAdapter for using with Folding Cell
- * Adapter holds indexes of unfolded elements for correct work with default reusable views behavior
- */
-public class MagazineCellAdapter extends ArrayAdapter<Magazine> {
 
-    private HashSet<Integer> unfoldedIndexes = new HashSet<>();
+public class MagazineCellAdapter extends BaseAdapter {
     Context context;
+    LayoutInflater lInflater;
     ArrayList<Magazine> magazines;
+    private Button downloadPDF;
+    private Button downloadText;
+    private Button read;
+    private ArrayList<Button> buttons =  new ArrayList<>();
 
-
-    public MagazineCellAdapter(Context context, ArrayList<Magazine> magazines) {
-        super(context, 0, magazines);
+    MagazineCellAdapter(Context context, ArrayList<Magazine> magazines) {
         this.context = context;
         this.magazines = magazines;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        // get item for selected view
-        Magazine item = getItem(position);
-        // if cell is exists - reuse it, if not - create the new one from resource
-        FoldingCell cell = (FoldingCell) convertView;
-        ViewHolder viewHolder;
-        if (cell == null) {
-            viewHolder = new ViewHolder();
-            LayoutInflater vi = LayoutInflater.from(getContext());
-            cell = (FoldingCell) vi.inflate(R.layout.magazine_cell, parent, false);
-            // binding view parts to view holder
-            viewHolder.title = (TextView) cell.findViewById(R.id.title);
-            viewHolder.magazineImage = (ImageView) cell.findViewById(R.id.magazineImage);
-            viewHolder.date = (TextView) cell.findViewById(R.id.date);
-            viewHolder.viewsCount = (TextView) cell.findViewById(R.id.viewsCount);
-            viewHolder.titleSchool = (TextView) cell.findViewById(R.id.titleSchool);
-            viewHolder.preview = (TextView) cell.findViewById(R.id.preview);
-            viewHolder.downloadButton = (Button) cell.findViewById(R.id.downloadButton);
-            cell.setTag(viewHolder);
-        } else {
-            // for existing cell set valid valid state(without animation)
-            if (unfoldedIndexes.contains(position)) {
-                cell.unfold(true);
-            } else {
-                cell.fold(true);
-            }
-            viewHolder = (ViewHolder) cell.getTag();
-        }
-
-        // bind data from selected element to view through view holder
-        viewHolder.title.setText(item.getTitle());
-        Log.d("mytag", item.getTitle() + "");
-        //DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-        //Date today = item.getDate();
-        //String dateString = df.format(today);
-        //viewHolder.date.setText(dateString);
-        viewHolder.viewsCount.setText(String.valueOf(item.getViewsCount()));
-        viewHolder.titleSchool.setText(item.getTitleSchool());
-        viewHolder.preview.setText(String.valueOf(item.getPreview()));
-        viewHolder.downloadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-        return cell;
-    }
-
-    // simple methods for register cell state changes
-    public void registerToggle(int position) {
-        if (unfoldedIndexes.contains(position))
-            registerFold(position);
-        else
-            registerUnfold(position);
-    }
-
-    public void registerFold(int position) {
-        unfoldedIndexes.remove(position);
-    }
-
-    public void registerUnfold(int position) {
-        unfoldedIndexes.add(position);
-    }
-
-    // View lookup cache
-    private static class ViewHolder {
-        TextView title;
-        ImageView magazineImage;
-        TextView date;
-        TextView viewsCount;
-        TextView titleSchool;
-        TextView preview;
-        Button downloadButton;
+        lInflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     // кол-во элементов
@@ -116,9 +38,69 @@ public class MagazineCellAdapter extends ArrayAdapter<Magazine> {
         return magazines.size();
     }
 
+    // элемент по позиции
+    @Override
+    public Object getItem(int position) {
+        return magazines.get(position);
+    }
+
     // id по позиции
     @Override
     public long getItemId(int position) {
         return position;
     }
+
+    // пункт списка
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        // используем созданные, но не используемые view
+        View view = convertView;
+        if (view == null) {
+            view = lInflater.inflate(R.layout.magazine_cell, parent, false);
+        }
+
+        Magazine magazine = getProduct(position);
+
+        // заполняем View в пункте списка данными из товаров: наименование, цена
+        // и картинка
+        String viewsCount = String.valueOf(magazine.getViewsCount());
+        String title = magazine.getTitle();
+        String imageURL = magazine.getTitleImage();
+        String preview = magazine.getPreview();
+        ((TextView) view.findViewById(R.id.title)).setText(title);
+        ((TextView) view.findViewById(R.id.viewsCount)).setText(viewsCount);
+        ((TextView) view.findViewById(R.id.preview)).setText(preview);
+        ImageView magazineImage =  (ImageView) view.findViewById(R.id.magazineImage);
+        Picasso.with(context).load(imageURL).into(magazineImage);
+
+
+        buttons.add(downloadPDF = (Button) view.findViewById(R.id.downloadPDF));
+        buttons.add(downloadText = (Button) view.findViewById(R.id.downloadText));
+        buttons.add(read = (Button) view.findViewById(R.id.read));
+        createListenersForButton();
+
+        return view;
+    }
+
+    private void createListenersForButton(){
+        for(Button b : buttons){
+            b.setOnClickListener(buttonClickListener);
+        }
+    }
+
+    // товар по позиции
+    Magazine getProduct(int position) {
+        return (Magazine) getItem(position);
+    }
+
+
+    View.OnClickListener buttonClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int id = v.getId();
+            if(id == R.id.downloadPDF){
+                //TODO
+            }
+        }
+    };
 }
