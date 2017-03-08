@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:objectId="@+objectId/cell"
+        android:id="@+id/cell"
         android:background="@color/cell_background"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
@@ -16,7 +16,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/img1"
-            android:objectId="@+objectId/magazineImage" />
+            android:id="@+id/magazineImage" />
 
         <TextView
             android:text="TextView"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:objectId="@+objectId/title"
+            android:id="@+id/title"
             android:textColor="@color/floating_label"
             android:layout_marginTop="8dp"
             android:textStyle="normal|bold"
@@ -34,19 +34,19 @@
             android:text="@string/magazine_downloads"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:objectId="@+objectId/textView3"
+            android:id="@+id/textView3"
             android:textSize="12sp"
-            android:layout_below="@+objectId/title"
+            android:layout_below="@+id/title"
             android:layout_marginTop="7dp"
-            android:layout_alignStart="@+objectId/title" />
+            android:layout_alignStart="@+id/title" />
 
         <TextView
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:objectId="@+objectId/viewsCount"
-            android:layout_below="@+objectId/title"
-            android:layout_toEndOf="@+objectId/textView3"
+            android:id="@+id/viewsCount"
+            android:layout_below="@+id/title"
+            android:layout_toEndOf="@+id/textView3"
             android:textSize="12sp"
             android:textColor="#a3a3a3"
             android:layout_marginTop="7dp"
@@ -59,28 +59,28 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="60dp"
-            android:objectId="@+objectId/preview"
+            android:id="@+id/preview"
             android:textSize="14sp"
             android:textStyle="normal|italic"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_alignStart="@+objectId/title" />
+            android:layout_alignStart="@+id/title" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:objectId="@+objectId/titleSeparator"
+            android:id="@+id/titleSeparator"
             android:layout_marginTop="32dp"
-            android:layout_toEndOf="@+objectId/magazineImage"
+            android:layout_toEndOf="@+id/magazineImage"
             android:background="#dfdfdf" />
 
         <Button
             android:text="@string/magazine_download_pdf"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+objectId/downloadText"
-            android:layout_alignEnd="@+objectId/preview"
-            android:objectId="@+objectId/downloadPDF"
+            android:layout_alignTop="@+id/downloadText"
+            android:layout_alignEnd="@+id/preview"
+            android:id="@+id/downloadPDF"
             android:background="@android:color/holo_green_light"
             android:elevation="2dp"
             android:alpha="0" />
@@ -88,12 +88,12 @@
         <Button
             android:text="@string/magazine_download_text"
             android:layout_height="wrap_content"
-            android:objectId="@+objectId/downloadText"
+            android:id="@+id/downloadText"
             android:background="@android:color/holo_orange_light"
             android:elevation="2dp"
             android:layout_width="100dp"
             android:layout_centerVertical="true"
-            android:layout_alignStart="@+objectId/preview"
+            android:layout_alignStart="@+id/preview"
             android:alpha="0" />
 
         <Button
@@ -104,18 +104,18 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="71dp"
             android:layout_marginBottom="15dp"
-            android:objectId="@+objectId/read"
+            android:id="@+id/read"
             android:background="@android:color/holo_red_light"
             android:elevation="5dp"
             android:alpha="0" />
 
         <ProgressBar
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignBottom="@+id/downloadText"
             android:layout_centerHorizontal="true"
-            android:id="@+id/downloadBar" />
+            android:id="@+id/progressBar" />
 
     </RelativeLayout>
 
