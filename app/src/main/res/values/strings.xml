@@ -36,7 +36,8 @@
     <string name="magazine_download_text">Скачать (Текст)</string>
     <string name="magazine_date">Опубликован</string>
     <string name="magazine_download_pdf">Скачать (PDF)</string>
-    <string name="magazine_read">Читать</string>
+    <string name="magazine_read_text">Читать (Текст)</string>
+    <string name="magazine_read_PDF">Читать (PDF)</string>
 
 
 </resources>

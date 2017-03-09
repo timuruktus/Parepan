@@ -16,14 +16,14 @@ public class Magazine {
     private Date created;
     private int viewsCount;
     private boolean downloadedPDF;
-    private int objectId;
+    private String objectId;
     private boolean downloadedText;
 
     public Magazine() {}
 
     public Magazine(String textUrl, String title, String titleImage, String createdTime,
                     int viewsCount, String titleSchool, Date created, String city, String school,
-                    boolean downloadedPDF, int objectId, boolean downloadedText, String pdfUrl) {
+                    boolean downloadedPDF, String objectId, boolean downloadedText, String pdfUrl) {
         this.textUrl = textUrl;
         this.title = title;
         this.titleImage = titleImage;
@@ -120,11 +120,11 @@ public class Magazine {
         this.school = school;
     }
 
-    public int getObjectId() {
+    public String getObjectId() {
         return objectId;
     }
 
-    public void setObjectId(int objectId) {
+    public void setObjectId(String objectId) {
         this.objectId = objectId;
     }
 
