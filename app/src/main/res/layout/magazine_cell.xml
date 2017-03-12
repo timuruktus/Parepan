@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="200dp"
+    android:id="@+id/layout">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,10 +16,10 @@
         android:elevation="2dp">
 
         <ImageView
-            android:layout_width="150dp"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/img1"
-            android:id="@+id/magazineImage" />
+            android:id="@+id/magazineImage"
+            android:layout_width="95dp" />
 
         <TextView
             android:text="TextView"
@@ -70,11 +71,11 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1dp"
             android:id="@+id/titleSeparator"
             android:layout_marginTop="32dp"
             android:layout_toEndOf="@+id/magazineImage"
-            android:background="#dfdfdf" />
+            android:background="#ff000000" />
 
         <Button
             android:text="@string/magazine_download_pdf"

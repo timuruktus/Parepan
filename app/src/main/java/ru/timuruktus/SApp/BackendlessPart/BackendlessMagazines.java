@@ -15,16 +15,16 @@ import ru.timuruktus.SApp.MagazinePart.Magazine;
 
 public class BackendlessMagazines {
 
-    EGetMagazinesList eGetMagazinesList;
+    EGetMagazinesWeb eGetMagazinesWeb;
 
     public BackendlessMagazines(){
         EventBus.getDefault().register(this);
     }
 
     @Subscribe
-    public void getMagazines(EGetMagazinesList event){
+    public void getMagazines(EGetMagazinesWeb event){
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
-        eGetMagazinesList = event;
+        eGetMagazinesWeb = event;
         try{
             dataQuery.setWhereClause(event.getWhereClause());
         }catch(NullPointerException ex){
@@ -41,8 +41,8 @@ public class BackendlessMagazines {
                 new AsyncCallback<BackendlessCollection<Magazine>>(){
                     @Override
                     public void handleResponse( BackendlessCollection<Magazine> foundMagazines ) {
-                        eGetMagazinesList.setMagazines(foundMagazines.getCurrentPage());
-                        eGetMagazinesList.callback();
+                        eGetMagazinesWeb.setMagazines(foundMagazines.getCurrentPage());
+                        eGetMagazinesWeb.callback();
                     }
                     @Override
                     public void handleFault( BackendlessFault fault ) {

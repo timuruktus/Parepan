@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.timuruktus.SApp.BackendlessPart.BackendlessMagazines;
-import ru.timuruktus.SApp.BackendlessPart.EGetMagazinesList;
+import ru.timuruktus.SApp.BackendlessPart.EGetMagazinesWeb;
 import ru.timuruktus.SApp.BaseEvent;
 import ru.timuruktus.SApp.BasePresenter;
 
@@ -20,9 +20,9 @@ import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES_SCHOOL;
 
 public class MagazinePresenter implements BasePresenter {
 
-    MagazineFragment magazineFragment;
-    SharedPreferences settings;
-    EGetMagazines eGetMagazines;
+    private MagazineFragment magazineFragment;
+    private SharedPreferences settings;
+    private EGetMagazines eGetMagazines;
 
     public MagazinePresenter(MagazineFragment magazineFragment) {
         this.magazineFragment = magazineFragment;
@@ -43,7 +43,7 @@ public class MagazinePresenter implements BasePresenter {
     public void getMagazines(EGetMagazines event){
         BackendlessMagazines backendlessMagazines = new BackendlessMagazines();
         this.eGetMagazines = event;
-        EventBus.getDefault().post(new EGetMagazinesList(getWhereClause(), this));
+        EventBus.getDefault().post(new EGetMagazinesWeb(getWhereClause(), this));
     }
 
     private String getWhereClause(){
@@ -53,8 +53,8 @@ public class MagazinePresenter implements BasePresenter {
 
     @Override
     public void eventCallback(BaseEvent event) {
-        if(event instanceof EGetMagazinesList){
-            EGetMagazinesList currentEvent = (EGetMagazinesList) event;
+        if(event instanceof EGetMagazinesWeb){
+            EGetMagazinesWeb currentEvent = (EGetMagazinesWeb) event;
             List<Magazine> magazineList = currentEvent.getMagazines();
             ArrayList<Magazine> magazineArrayList = (ArrayList<Magazine>) magazineList;
             eGetMagazines.setMagazines(magazineArrayList);

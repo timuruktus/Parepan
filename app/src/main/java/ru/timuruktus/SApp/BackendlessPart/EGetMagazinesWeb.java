@@ -9,7 +9,7 @@ import ru.timuruktus.SApp.BaseFragment;
 import ru.timuruktus.SApp.BasePresenter;
 import ru.timuruktus.SApp.MagazinePart.Magazine;
 
-public class EGetMagazinesList implements BaseEvent {
+public class EGetMagazinesWeb implements BaseEvent {
 
     private BaseFragment fragment;
     private BasePresenter presenter;
@@ -17,24 +17,24 @@ public class EGetMagazinesList implements BaseEvent {
     private List<Magazine> magazines;
 
 
-    public EGetMagazinesList() {
+    public EGetMagazinesWeb() {
     }
 
-    public EGetMagazinesList(String whereClause, BasePresenter presenter) {
+    public EGetMagazinesWeb(String whereClause, BasePresenter presenter) {
         this.whereClause = whereClause;
         this.presenter = presenter;
     }
 
-    public EGetMagazinesList(String whereClause, BaseFragment fragment) {
+    public EGetMagazinesWeb(String whereClause, BaseFragment fragment) {
         this.whereClause = whereClause;
         this.fragment = fragment;
     }
 
-    public EGetMagazinesList(BaseFragment fragment) {
+    public EGetMagazinesWeb(BaseFragment fragment) {
         this.fragment = fragment;
     }
 
-    public EGetMagazinesList(BasePresenter presenter) {
+    public EGetMagazinesWeb(BasePresenter presenter) {
         this.presenter = presenter;
     }
 
@@ -57,7 +57,7 @@ public class EGetMagazinesList implements BaseEvent {
 
     @Override
     public void callback() {
-        Log.d("EGetMagazinesList", "callback()");
+        Log.d("EGetMagazinesWeb", "callback()");
         if(presenter != null){
             presenter.eventCallback(this);
         }else if(fragment != null){

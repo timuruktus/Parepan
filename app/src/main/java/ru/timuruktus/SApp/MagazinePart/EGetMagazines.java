@@ -7,6 +7,9 @@ import ru.timuruktus.SApp.BaseFragment;
 
 public class EGetMagazines implements BaseEvent {
 
+    public ArrayList<Magazine> magazines;
+    public BaseFragment fragment;
+
 
     public EGetMagazines(BaseFragment fragment) {
         this.fragment = fragment;
@@ -19,9 +22,6 @@ public class EGetMagazines implements BaseEvent {
     public void setMagazines(ArrayList<Magazine> magazines) {
         this.magazines = magazines;
     }
-
-    public ArrayList<Magazine> magazines;
-    public BaseFragment fragment;
 
     @Override
     public void callback() {
