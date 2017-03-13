@@ -17,6 +17,8 @@ import com.backendless.Backendless;
 
 import org.greenrobot.eventbus.EventBus;
 
+import ru.timuruktus.SApp.BackendlessPart.BackendlessMagazines;
+import ru.timuruktus.SApp.LocalData.Database;
 import ru.timuruktus.SApp.LoginPart.LoginFragment;
 import ru.timuruktus.SApp.MagazinePart.MagazineFragment;
 import ru.timuruktus.SApp.R;
@@ -42,7 +44,10 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         MainPresenter mainPresenter = new MainPresenter(this);
+        BackendlessMagazines backendlessMagazines = new BackendlessMagazines();
+        Database d = new Database();
         loadFragment();
+
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

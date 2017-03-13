@@ -30,7 +30,7 @@ public class BackendlessMagazines {
         }catch(NullPointerException ex){
             dataQuery.setWhereClause("");
         }finally {
-            Log.d("BackendlessMagazines", event.getWhereClause());
+            Log.d("mytag", "BackendlessMagazines.getMagazines() print where clause: " + event.getWhereClause());
             getData(dataQuery);
         }
 

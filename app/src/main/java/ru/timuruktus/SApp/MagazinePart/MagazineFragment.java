@@ -19,6 +19,7 @@ public class MagazineFragment extends BaseFragment {
     public View rootView;
     ListView magazinesListView;
     MagazinePresenter magazinePresenter;
+    MagazineCellAdapter adapter;
 
 
     @Override
@@ -29,21 +30,27 @@ public class MagazineFragment extends BaseFragment {
                 inflater.inflate(R.layout.magazine_fragment, container, false);
         magazinePresenter = new MagazinePresenter(this);
         initAllViews();
-        EventBus.getDefault().post(new EGetMagazines(this));
+        EventBus.getDefault().post(new LEGetMagazines(this));
         return rootView;
     }
 
     @Override
     public void eventCallback(BaseEvent event) {
-        if(event instanceof EGetMagazines){
-            EGetMagazines currentEvent = (EGetMagazines) event;
-            MagazineCellAdapter adapter = new MagazineCellAdapter(magazinesListView.getContext(), currentEvent.getMagazines());
+        if(event instanceof LEGetMagazines){
+            LEGetMagazines currentEvent = (LEGetMagazines) event;
+            adapter = new MagazineCellAdapter(magazinesListView.getContext(), currentEvent.getMagazines());
             magazinesListView.setAdapter(adapter);
         }
     }
 
     private void initAllViews(){
         magazinesListView = (ListView) rootView.findViewById(R.id.magazinesListView);
+    }
+
+    @Override
+    public void onStop(){
+        magazinePresenter.detachListeners();
+        super.onStop();
     }
 
 

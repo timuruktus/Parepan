@@ -5,13 +5,13 @@ import java.util.ArrayList;
 import ru.timuruktus.SApp.BaseEvent;
 import ru.timuruktus.SApp.BaseFragment;
 
-public class EGetMagazines implements BaseEvent {
+public class LEGetMagazines implements BaseEvent {
 
     public ArrayList<Magazine> magazines;
     public BaseFragment fragment;
 
 
-    public EGetMagazines(BaseFragment fragment) {
+    public LEGetMagazines(BaseFragment fragment) {
         this.fragment = fragment;
     }
 

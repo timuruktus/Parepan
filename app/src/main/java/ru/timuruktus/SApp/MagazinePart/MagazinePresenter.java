@@ -9,7 +9,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.timuruktus.SApp.BackendlessPart.BackendlessMagazines;
 import ru.timuruktus.SApp.BackendlessPart.EGetMagazinesWeb;
 import ru.timuruktus.SApp.BaseEvent;
 import ru.timuruktus.SApp.BasePresenter;
@@ -22,7 +21,7 @@ public class MagazinePresenter implements BasePresenter {
 
     private MagazineFragment magazineFragment;
     private SharedPreferences settings;
-    private EGetMagazines eGetMagazines;
+    private LEGetMagazines LEGetMagazines;
 
     public MagazinePresenter(MagazineFragment magazineFragment) {
         this.magazineFragment = magazineFragment;
@@ -40,9 +39,8 @@ public class MagazinePresenter implements BasePresenter {
     }
 
     @Subscribe
-    public void getMagazines(EGetMagazines event){
-        BackendlessMagazines backendlessMagazines = new BackendlessMagazines();
-        this.eGetMagazines = event;
+    public void getMagazines(LEGetMagazines event){
+        this.LEGetMagazines = event;
         EventBus.getDefault().post(new EGetMagazinesWeb(getWhereClause(), this));
     }
 
@@ -57,8 +55,13 @@ public class MagazinePresenter implements BasePresenter {
             EGetMagazinesWeb currentEvent = (EGetMagazinesWeb) event;
             List<Magazine> magazineList = currentEvent.getMagazines();
             ArrayList<Magazine> magazineArrayList = (ArrayList<Magazine>) magazineList;
-            eGetMagazines.setMagazines(magazineArrayList);
-            eGetMagazines.callback();
+            LEGetMagazines.setMagazines(magazineArrayList);
+            LEGetMagazines.callback();
         }
     }
+
+    public void detachListeners(){
+        EventBus.getDefault().unregister(this);
+    }
+
 }

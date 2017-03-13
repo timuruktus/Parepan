@@ -17,7 +17,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
-import ru.timuruktus.SApp.LocalData.Database;
 import ru.timuruktus.SApp.LocalData.ECheckDownload;
 import ru.timuruktus.SApp.LocalDataEvent;
 import ru.timuruktus.SApp.R;
@@ -47,6 +46,7 @@ public class MagazineCellAdapter extends BaseAdapter {
         this.magazines = magazines;
         lInflater = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        EventBus.getDefault().register(this);
     }
 
     // кол-во элементов
@@ -110,19 +110,21 @@ public class MagazineCellAdapter extends BaseAdapter {
 
     private void isTextDownload(String objectId, Button b){
         //TODO EventBus to LocalData package
-        Database d = new Database();
-        EventBus.getDefault().post(new ECheckDownload(this, objectId, b, ECheckDownload.CheckWhat.Text));
+        EventBus.getDefault().post(new ECheckDownload(this, objectId, b));
     }
 
     private void isPDFDownload(String objectId, Button b){
         //TODO EventBus to LocalData package
-        Database d = new Database();
-        EventBus.getDefault().post(new ECheckDownload(this, objectId, b, ECheckDownload.CheckWhat.PDF));
+        EventBus.getDefault().post(new ECheckDownload(this, objectId, b));
     }
 
     @Subscribe
-    private void LocalDataEventsListener(LocalDataEvent event){
+    public void LocalDataEventsListener(LocalDataEvent event){
         //TODO: Handle events
+        if(event instanceof ESetReadButtonEnabled){
+            ESetReadButtonEnabled currentEvent = (ESetReadButtonEnabled) event;
+            setButtonEnabled(currentEvent.getB(), currentEvent.isEnabled());
+        }
     }
 
     private void setButtonsColors(Magazine m, View v){
@@ -143,15 +145,19 @@ public class MagazineCellAdapter extends BaseAdapter {
     private void setButtonEnabled(Button b, boolean enabled){
         b.setEnabled(enabled);
         if(enabled){
-            if (b.equals(readText) || b.equals(readPDF)){
-                b.setBackgroundColor(READ_COLOR);
-            }else if(b.equals(downloadPDF)){
-                b.setBackgroundColor(DOWNLOAD_PDF_COLOR);
-            }else if(b.equals(downloadText)){
-                b.setBackgroundColor(DOWNLOAD_TEXT_COLOR);
-            }
+            setActivatedButtonColor(b);
         }else{
-                setDisabledColor(b);
+            setDisabledColor(b);
+        }
+    }
+
+    private void setActivatedButtonColor(Button b){
+        if (b.equals(readText) || b.equals(readPDF)){
+            b.setBackgroundColor(READ_COLOR);
+        }else if(b.equals(downloadPDF)){
+            b.setBackgroundColor(DOWNLOAD_PDF_COLOR);
+        }else if(b.equals(downloadText)){
+            b.setBackgroundColor(DOWNLOAD_TEXT_COLOR);
         }
     }
 
