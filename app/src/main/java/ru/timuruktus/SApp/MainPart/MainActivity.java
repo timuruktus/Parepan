@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
     NavigationView navigationView;
     DrawerLayout drawer;
     Toolbar toolbar;
+    Menu menu;
     private final String YOUR_APP_ID = "E8F88DD6-9964-2F7D-FF5C-0443B5ABFD00";
     private final String YOUR_SECRET_KEY = "7C1D5112-2D8B-6EA0-FFE3-9A0498991700";
     private final String APP_VERSION = "v1";
@@ -71,7 +72,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        this.menu = menu;
         getMenuInflater().inflate(R.menu.main, menu);
+        this.menu.findItem(R.id.as).setEnabled(false).setVisible(false);
         return true;
     }
 

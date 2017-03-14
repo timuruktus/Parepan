@@ -48,6 +48,19 @@ public class MainPresenter implements BasePresenter {
         fragmentTransaction.commit();
     }
 
+    private void configureToolbar(Fragment fragment){
+        disableAllToolbarButtons();
+        if(fragment instanceof MagazineFragment) {
+            enableToolbarButton(R.id.magazine_refresh, true);
+        }else if(fragment instanceof WelcomeFragment){
+            disableAllToolbarButtons();
+        }else if(fragment instanceof LoginFragment){
+
+        }else if(fragment instanceof ScheduleFragment){
+
+        }
+    }
+
     private void setNewFragment(Fragment fragment){
         if(isJoined() && (fragment instanceof MagazineFragment || fragment instanceof ScheduleFragment)) {
             fragmentTransaction.replace(R.id.fragmentContainer, fragment);
@@ -60,6 +73,7 @@ public class MainPresenter implements BasePresenter {
 
     @Subscribe
     public void changeNavItem(EOnFragmentChanged event){
+        configureToolbar(event.getFragment());
         if(event.getFragment() instanceof MagazineFragment){
             mainActivity.navigationView.setCheckedItem(R.id.nav_book);
         }else if(event.getFragment() instanceof ScheduleFragment){
@@ -86,7 +100,6 @@ public class MainPresenter implements BasePresenter {
             mainActivity.getSupportActionBar().show();
         }else{
             mainActivity.getSupportActionBar().hide();
-
         }
     }
 
@@ -99,5 +112,14 @@ public class MainPresenter implements BasePresenter {
     @Override
     public void eventCallback(BaseEvent event) {
 
+    }
+
+    private void enableToolbarButton(int resId, boolean enabled){
+        mainActivity.menu.findItem(resId).setEnabled(enabled).setVisible(enabled);
+    }
+
+    private void disableAllToolbarButtons(){
+        enableToolbarButton(R.id.magazine_refresh, false);
+        enableToolbarButton(R.id.as, false);
     }
 }

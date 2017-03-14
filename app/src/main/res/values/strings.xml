@@ -8,6 +8,7 @@
     <string name="action_settings">Настройки</string>
     <string name="continue_action">Продолжить</string>
     <string name="thanks">Спасибо</string>
+    <string name="simple_title_for_toolbar">sample</string>
 
     // [FOR NAVIGATION MENU]
     <string name="nav_main_text">Главное меню</string>

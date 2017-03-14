@@ -6,4 +6,18 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/magazine_refresh"
+        android:icon="@drawable/ic_toolbar_refresh"
+        android:title="@string/simple_title_for_toolbar"
+        android:visible="false"
+        android:enabled="false"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/as"
+        android:icon="@drawable/ic_menu_gallery"
+        android:title="@string/simple_title_for_toolbar"
+        android:visible="false"
+        android:enabled="false"
+        app:showAsAction="ifRoom"/>
 </menu>
