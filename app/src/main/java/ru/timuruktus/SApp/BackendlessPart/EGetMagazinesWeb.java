@@ -57,7 +57,7 @@ public class EGetMagazinesWeb implements BaseEvent {
 
     @Override
     public void callback() {
-        Log.d("EGetMagazinesWeb", "callback()");
+        Log.d("mytag", "EGetMagazinesWeb.callback()");
         if(presenter != null){
             presenter.eventCallback(this);
         }else if(fragment != null){

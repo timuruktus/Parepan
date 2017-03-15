@@ -12,6 +12,7 @@ import java.util.List;
 import ru.timuruktus.SApp.BackendlessPart.EGetMagazinesWeb;
 import ru.timuruktus.SApp.BaseEvent;
 import ru.timuruktus.SApp.BasePresenter;
+import ru.timuruktus.SApp.LocalData.EGetMagazinesDB;
 
 import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES;
 import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES_CITY;
@@ -21,7 +22,7 @@ public class MagazinePresenter implements BasePresenter {
 
     private MagazineFragment magazineFragment;
     private SharedPreferences settings;
-    private LEGetMagazines LEGetMagazines;
+    private LEGetMagazines lEGetMagazines;
 
     public MagazinePresenter(MagazineFragment magazineFragment) {
         this.magazineFragment = magazineFragment;
@@ -40,8 +41,12 @@ public class MagazinePresenter implements BasePresenter {
 
     @Subscribe
     public void getMagazines(LEGetMagazines event){
-        this.LEGetMagazines = event;
-        EventBus.getDefault().post(new EGetMagazinesWeb(getWhereClause(), this));
+        this.lEGetMagazines = event;
+        if(!event.isFromWeb()) {
+            EventBus.getDefault().post(new EGetMagazinesDB(getCity(), getSchool(), this));
+        }else{
+            EventBus.getDefault().post(new EGetMagazinesWeb(getWhereClause(), this));
+        }
     }
 
     private String getWhereClause(){
@@ -51,14 +56,21 @@ public class MagazinePresenter implements BasePresenter {
 
     @Override
     public void eventCallback(BaseEvent event) {
-        if(event instanceof EGetMagazinesWeb){
+        if(event instanceof EGetMagazinesDB){
+            EGetMagazinesDB currentEvent = (EGetMagazinesDB) event;
+            List<Magazine> magazineList = currentEvent.getMagazines();
+            ArrayList<Magazine> magazineArrayList = (ArrayList<Magazine>) magazineList;
+            lEGetMagazines.setMagazines(magazineArrayList);
+            lEGetMagazines.callback();
+        }else if(event instanceof EGetMagazinesWeb){
             EGetMagazinesWeb currentEvent = (EGetMagazinesWeb) event;
             List<Magazine> magazineList = currentEvent.getMagazines();
             ArrayList<Magazine> magazineArrayList = (ArrayList<Magazine>) magazineList;
-            LEGetMagazines.setMagazines(magazineArrayList);
-            LEGetMagazines.callback();
+            lEGetMagazines.setMagazines(magazineArrayList);
+            lEGetMagazines.callback();
         }
     }
+
 
     public void detachListeners(){
         EventBus.getDefault().unregister(this);

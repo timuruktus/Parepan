@@ -23,6 +23,7 @@ import ru.timuruktus.SApp.LoginPart.LoginFragment;
 import ru.timuruktus.SApp.MagazinePart.MagazineFragment;
 import ru.timuruktus.SApp.R;
 import ru.timuruktus.SApp.SchedulePart.ScheduleFragment;
+import ru.timuruktus.SApp.ToolbarEvents.ERefreshMagazinesList;
 import ru.timuruktus.SApp.WelcomePart.WelcomeFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -71,23 +72,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         this.menu = menu;
         getMenuInflater().inflate(R.menu.main, menu);
-        this.menu.findItem(R.id.as).setEnabled(false).setVisible(false);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+
+        }else if(id == R.id.magazine_refresh){
+            EventBus.getDefault().post(new ERefreshMagazinesList());
         }
 
         return super.onOptionsItemSelected(item);

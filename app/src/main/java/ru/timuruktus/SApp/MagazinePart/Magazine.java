@@ -1,42 +1,51 @@
 package ru.timuruktus.SApp.MagazinePart;
 
+import com.orm.SugarRecord;
+
 import java.util.Date;
 
-public class Magazine {
+public class Magazine extends SugarRecord {
 
-    private String city;
-    private String school;
-    private String textUrl;
-    private String pdfUrl;
-    private String title;
-    private String titleImage;
-    private String createdTime;
-    private String preview;
-    private String titleSchool;
-    private Date created;
-    private int viewsCount;
-    private boolean downloadedPDF;
-    private String objectId;
-    private boolean downloadedText;
+    String city;
+    String school;
+    String textUrl;
+    String pdfUrl;
+    String downloadedTextPath;
+    String downloadedPDFPath;
+    String title;
+    String titleImage;
+    String createdTime;
+    String preview;
+    String titleSchool;
+    Date created;
+    int viewsCount;
+    boolean downloadedPDF;
+    String objectId;
+    boolean downloadedText;
 
     public Magazine() {}
 
-    public Magazine(String textUrl, String title, String titleImage, String createdTime,
-                    int viewsCount, String titleSchool, Date created, String city, String school,
-                    boolean downloadedPDF, String objectId, boolean downloadedText, String pdfUrl) {
+    public Magazine(String city, String school, String textUrl, String pdfUrl,
+                    String downloadedTextPath, String downloadedPDFPath, String title,
+                    String titleImage, String createdTime, String preview, String titleSchool,
+                    Date created, int viewsCount, boolean downloadedPDF, String objectId,
+                    boolean downloadedText) {
+        this.city = city;
+        this.school = school;
         this.textUrl = textUrl;
+        this.pdfUrl = pdfUrl;
+        this.downloadedTextPath = downloadedTextPath;
+        this.downloadedPDFPath = downloadedPDFPath;
         this.title = title;
         this.titleImage = titleImage;
         this.createdTime = createdTime;
-        this.viewsCount = viewsCount;
+        this.preview = preview;
         this.titleSchool = titleSchool;
         this.created = created;
-        this.city = city;
-        this.school = school;
+        this.viewsCount = viewsCount;
         this.downloadedPDF = downloadedPDF;
         this.objectId = objectId;
         this.downloadedText = downloadedText;
-        this.pdfUrl = pdfUrl;
     }
 
     public String getTextUrl() {
@@ -152,17 +161,19 @@ public class Magazine {
         this.pdfUrl = pdfUrl;
     }
 
+    public String getDownloadedTextPath() {
+        return downloadedTextPath;
+    }
 
+    public void setDownloadedTextPath(String downloadedTextPath) {
+        this.downloadedTextPath = downloadedTextPath;
+    }
 
+    public String getDownloadedPDFPath() {
+        return downloadedPDFPath;
+    }
 
-
-
-
-
-
-
-
-
-
-
+    public void setDownloadedPDFPath(String downloadedPDFPath) {
+        this.downloadedPDFPath = downloadedPDFPath;
+    }
 }
