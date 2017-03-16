@@ -11,9 +11,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.List;
 
-import ru.timuruktus.SApp.MagazinePart.ESetReadButtonEnabled;
 import ru.timuruktus.SApp.MagazinePart.Magazine;
-import ru.timuruktus.SApp.R;
 
 public class Database {
 
@@ -21,26 +19,6 @@ public class Database {
 
     public Database(){
         EventBus.getDefault().register(this);
-    }
-
-    @Subscribe
-    public void checkDownload(ECheckDownload event){
-        Log.d("mytag", "Database.checkDownload() handled event");
-        Log.d("mytag", "id = " + event.getObjectId());
-        List<Magazine> magazines = Magazine.find(Magazine.class, "object_id = ?",
-                event.getObjectId());
-
-        if(magazines.size() == 0){
-            Log.d("mytag", "Database.CheckDownload magazineDB.size() == 0");
-            if(event.getB().getId() == R.id.readText){
-                EventBus.getDefault().post(new ESetReadButtonEnabled(event.getB(), false));
-            }else if(event.getB().getId() == R.id.readPDF){
-                EventBus.getDefault().post(new ESetReadButtonEnabled(event.getB(), false));
-            }
-        }else{
-            EventBus.getDefault().post(new ESetReadButtonEnabled(event.getB(), true));
-        }
-        Log.d("mytag", " end of handled event");
     }
 
     @Subscribe
@@ -58,13 +36,14 @@ public class Database {
     public void saveMagazines(ESaveMagazines event){
         ArrayList<Magazine> magazines = event.getMagazines();
         for(Magazine magazine : magazines){
-            if(!findObjectId(magazine.getObjectId())) {
+            if(!isAlreadySaved(magazine.getObjectId())) {
                 magazine.save();
+                Log.d("mytag", "Database.saveMagazines() save magazine");
             }
         }
     }
 
-    private boolean findObjectId(String objectId){
+    private boolean isAlreadySaved(String objectId){
         initAllObjectIds();
         return objectIds.contains(objectId);
     }

@@ -1,15 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/magazinesListView"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="10dp"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:scrollbars="none" />
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:id="@+id/have_magazines"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <ListView
+            android:id="@+id/magazinesListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:scrollbars="none">
+
+
+        </ListView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/have_no_magazines"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/error_reload_pls"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/error_arrow"
+            android:layout_toStartOf="@+id/error_arrow"
+            android:text="@string/no_magazine_reload_pls"
+            android:textColor="@color/floating_label"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/magazine_image_not_found"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            app:srcCompat="@drawable/ic_magazine_not_found"
+            android:layout_alignBottom="@+id/error_title"
+            android:layout_toStartOf="@+id/error_reload_pls"
+            android:layout_marginEnd="57dp" />
+
+        <ImageView
+            android:id="@+id/error_arrow"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="32dp"
+            app:srcCompat="@drawable/ic_arror_up"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:id="@+id/error_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:text="@string/no_magazine_title"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/error_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:text="@string/no_magazine_text"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/error_reason_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="250dp"
+            android:text="@string/no_magazine_reason_1"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/error_reason_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="270dp"
+            android:text="@string/no_magazine_reason_2"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/error_reason_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="310dp"
+            android:text="@string/no_magazine_reason_3"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/error_try_to_reload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="360dp"
+            android:text="@string/no_magazine_try_to_reload"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/error_thanks"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="420dp"
+            android:text="@string/no_magazine_thanks"
+            android:textAlignment="center" />
+    </RelativeLayout>
+
+</RelativeLayout>

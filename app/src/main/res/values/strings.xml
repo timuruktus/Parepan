@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Scula</string>
-    <string name="title_activity_main">Scula</string>
+    <string name="app_name">Sculap</string>
+    <string name="title_activity_main">Sculap</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -39,6 +39,19 @@
     <string name="magazine_download_pdf">Скачать (PDF)</string>
     <string name="magazine_read_text">Читать (Текст)</string>
     <string name="magazine_read_PDF">Читать (PDF)</string>
+    
+    // [FOR MAGAZINE LAYOUT]
+    <string name="no_magazine_title">Журналы не загружены.</string>
+    <string name="no_magazine_text">Это может происходить по нескольким причинам:</string>
+    <string name="no_magazine_reason_1">1) У Вас отсутствует интернет-соединение</string>
+    <string name="no_magazine_reason_2">2) Вы не выбрали Вашу школу (Для решения проблемы, перейдите во вкладку "изменить школу")</string>
+    <string name="no_magazine_reason_3">3) Ваша школа пока не выпустила ни одного журнала</string>
+    <string name="no_magazine_try_to_reload">Попробуйте обновить список. (Требуется интернет-соединение)</string>
+    <string name="no_magazine_thanks">Спасибо :)</string>
+    <string name="no_magazine_reload_pls">Обновите, пожалуйста :)</string>
+
+    
+    
 
 
 </resources>

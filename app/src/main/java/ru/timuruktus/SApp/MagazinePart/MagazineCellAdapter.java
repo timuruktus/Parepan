@@ -17,7 +17,6 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
-import ru.timuruktus.SApp.LocalData.ECheckDownload;
 import ru.timuruktus.SApp.LocalDataEvent;
 import ru.timuruktus.SApp.R;
 
@@ -108,23 +107,17 @@ public class MagazineCellAdapter extends BaseAdapter {
     }
 
 
-    private void isTextDownload(String objectId, Button b){
-        //TODO EventBus to LocalData package
-        EventBus.getDefault().post(new ECheckDownload(this, objectId, b));
+    private boolean isTextDownload(Magazine magazine){
+        return magazine.isDownloadedText();
     }
 
-    private void isPDFDownload(String objectId, Button b){
-        //TODO EventBus to LocalData package
-        EventBus.getDefault().post(new ECheckDownload(this, objectId, b));
+    private boolean isPDFDownload(Magazine magazine){
+        return magazine.isDownloadedPDF();
     }
 
     @Subscribe
     public void LocalDataEventsListener(LocalDataEvent event){
-        //TODO: Handle events
-        if(event instanceof ESetReadButtonEnabled){
-            ESetReadButtonEnabled currentEvent = (ESetReadButtonEnabled) event;
-            setButtonEnabled(currentEvent.getB(), currentEvent.isEnabled());
-        }
+
     }
 
     private void setButtonsColors(Magazine m, View v){
@@ -132,13 +125,15 @@ public class MagazineCellAdapter extends BaseAdapter {
                 setButtonEnabled(getButton(v, R.id.downloadPDF), false);
                 setButtonEnabled(getButton(v, R.id.readPDF), false);
             }else{
-                isPDFDownload(m.getObjectId(), getButton(v, R.id.readPDF));
+                boolean enable = isPDFDownload(m);
+                setButtonEnabled(getButton(v, R.id.readPDF), enable);
             }
             if(m.getTextUrl() == null){
                 setButtonEnabled(getButton(v, R.id.downloadText), false);
                 setButtonEnabled(getButton(v, R.id.readText), false);
             }else{
-                isTextDownload(m.getObjectId(), getButton(v, R.id.readText));
+                boolean enable = isTextDownload(m);
+                setButtonEnabled(getButton(v, R.id.readText), enable);
             }
     }
 

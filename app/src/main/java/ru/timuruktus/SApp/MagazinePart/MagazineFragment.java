@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -46,11 +47,24 @@ public class MagazineFragment extends BaseFragment {
             LEGetMagazines currentEvent = (LEGetMagazines) event;
             magazinesArray = currentEvent.getMagazines();
             adapter = new MagazineCellAdapter(magazinesListView.getContext(), magazinesArray);
-            if(!currentEvent.isFromWeb()) {
-                magazinesListView.setAdapter(adapter);
+            magazinesListView.setAdapter(adapter);
+            if(magazinesArray.size() == 0){
+                setListViewEnabled(false);
             }else{
-                magazinesListView.setAdapter(adapter);
+                setListViewEnabled(true);
             }
+        }
+    }
+
+    private void setListViewEnabled(boolean enabled){
+        RelativeLayout haveNoMagazines = (RelativeLayout) rootView.findViewById(R.id.have_no_magazines);
+        RelativeLayout haveMagazines = (RelativeLayout) rootView.findViewById(R.id.have_magazines);
+        if(enabled){
+            haveNoMagazines.setVisibility(View.INVISIBLE);
+            haveMagazines.setVisibility(View.VISIBLE);
+        }else{
+            haveNoMagazines.setVisibility(View.VISIBLE);
+            haveMagazines.setVisibility(View.INVISIBLE);
         }
     }
 
