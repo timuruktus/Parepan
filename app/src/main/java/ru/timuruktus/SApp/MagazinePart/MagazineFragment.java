@@ -50,7 +50,6 @@ public class MagazineFragment extends BaseFragment {
                 magazinesListView.setAdapter(adapter);
             }else{
                 magazinesListView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
             }
         }
     }

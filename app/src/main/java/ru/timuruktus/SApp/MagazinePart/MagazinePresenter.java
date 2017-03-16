@@ -13,6 +13,7 @@ import ru.timuruktus.SApp.BackendlessPart.EGetMagazinesWeb;
 import ru.timuruktus.SApp.BaseEvent;
 import ru.timuruktus.SApp.BasePresenter;
 import ru.timuruktus.SApp.LocalData.EGetMagazinesDB;
+import ru.timuruktus.SApp.LocalData.ESaveMagazines;
 
 import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES;
 import static ru.timuruktus.SApp.MainPart.MainPresenter.APP_PREFERENCES_CITY;
@@ -66,9 +67,14 @@ public class MagazinePresenter implements BasePresenter {
             EGetMagazinesWeb currentEvent = (EGetMagazinesWeb) event;
             List<Magazine> magazineList = currentEvent.getMagazines();
             ArrayList<Magazine> magazineArrayList = (ArrayList<Magazine>) magazineList;
+            saveMagazinesInDB(magazineArrayList);
             lEGetMagazines.setMagazines(magazineArrayList);
             lEGetMagazines.callback();
         }
+    }
+
+    private void saveMagazinesInDB(ArrayList<Magazine> magazines){
+        EventBus.getDefault().post(new ESaveMagazines(magazines));
     }
 
 

@@ -128,13 +128,13 @@ public class MagazineCellAdapter extends BaseAdapter {
     }
 
     private void setButtonsColors(Magazine m, View v){
-            if(m.getPdfUrl() == null || m.getPdfUrl().equals("")){
+            if(m.getPdfUrl() == null){
                 setButtonEnabled(getButton(v, R.id.downloadPDF), false);
                 setButtonEnabled(getButton(v, R.id.readPDF), false);
             }else{
                 isPDFDownload(m.getObjectId(), getButton(v, R.id.readPDF));
             }
-            if(m.getTextUrl() == null || m.getTextUrl().equals("")){
+            if(m.getTextUrl() == null){
                 setButtonEnabled(getButton(v, R.id.downloadText), false);
                 setButtonEnabled(getButton(v, R.id.readText), false);
             }else{

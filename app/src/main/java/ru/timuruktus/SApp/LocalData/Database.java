@@ -8,6 +8,7 @@ import com.orm.query.Select;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ru.timuruktus.SApp.MagazinePart.ESetReadButtonEnabled;
@@ -15,6 +16,8 @@ import ru.timuruktus.SApp.MagazinePart.Magazine;
 import ru.timuruktus.SApp.R;
 
 public class Database {
+
+    ArrayList<String> objectIds;
 
     public Database(){
         EventBus.getDefault().register(this);
@@ -49,6 +52,30 @@ public class Database {
                 .list();
         event.setMagazines(magazineDB);
         event.callback();
+    }
+
+    @Subscribe
+    public void saveMagazines(ESaveMagazines event){
+        ArrayList<Magazine> magazines = event.getMagazines();
+        for(Magazine magazine : magazines){
+            if(!findObjectId(magazine.getObjectId())) {
+                magazine.save();
+            }
+        }
+    }
+
+    private boolean findObjectId(String objectId){
+        initAllObjectIds();
+        return objectIds.contains(objectId);
+    }
+
+    private void initAllObjectIds(){
+        List<Magazine> magazineArray = Magazine.listAll(Magazine.class);
+        ArrayList<String> objectIds = new ArrayList<>();
+        for(Magazine magazine : magazineArray){
+            objectIds.add(magazine.getObjectId());
+        }
+        this.objectIds = objectIds;
     }
 
 
