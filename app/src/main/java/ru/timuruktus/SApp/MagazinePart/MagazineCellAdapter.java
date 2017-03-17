@@ -245,7 +245,7 @@ public class MagazineCellAdapter extends BaseAdapter {
                         Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_LONG).show();
                     }
                 }else if(id == R.id.downloadText){
-                    if(!m.isDownloadedPDF()) {
+                    if(!m.isDownloadedText()) {
                         startDownload(m, view, false);
                     }else{
                         Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_LONG).show();
@@ -284,6 +284,7 @@ public class MagazineCellAdapter extends BaseAdapter {
                         EventBus.getDefault().post(new EMagazineDownloaded(destinationToDownload, PDF, magazine));
                         progressBar.setProgress(0);
                         EventBus.getDefault().post(new ERefreshMagazinesList());
+                        Toast.makeText(context, R.string.magazine_downloaded ,Toast.LENGTH_LONG).show();
                     }
 
                     @Override
