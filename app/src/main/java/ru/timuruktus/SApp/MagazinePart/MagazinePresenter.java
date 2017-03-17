@@ -64,8 +64,7 @@ public class MagazinePresenter implements BasePresenter {
             EGetMagazinesWeb currentEvent = (EGetMagazinesWeb) event;
             magazineList = currentEvent.getMagazines();
             magazineArrayList = (ArrayList<Magazine>) magazineList;
-            saveMagazinesInDB(magazineArrayList);
-            lEGetMagazines.setMagazines(magazineArrayList);
+            EventBus.getDefault().post(new ESaveMagazines(magazineArrayList));
             lEGetMagazines.callback();
         }
     }
@@ -74,11 +73,6 @@ public class MagazinePresenter implements BasePresenter {
         return "city = '" + city + "' and school = '"
                 + school + "'";
     }
-
-    private void saveMagazinesInDB(ArrayList<Magazine> magazines){
-        EventBus.getDefault().post(new ESaveMagazines(magazines));
-    }
-
 
     public void detachListeners(){
         EventBus.getDefault().unregister(this);

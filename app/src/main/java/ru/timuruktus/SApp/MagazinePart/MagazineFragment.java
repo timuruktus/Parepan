@@ -48,29 +48,17 @@ public class MagazineFragment extends BaseFragment {
     public void eventCallback(BaseEvent event) {
         if(event instanceof LEGetMagazines){
             LEGetMagazines currentEvent = (LEGetMagazines) event;
+            if(currentEvent.isFromWeb()){
+                EventBus.getDefault().post(new LEGetMagazines(this, false));
+                return;
+            }
             magazinesArray = currentEvent.getMagazines();
-            if(adapter == null) {
-                adapter = new MagazineCellAdapter(magazinesListView.getContext(), magazinesArray);
-                magazinesListView.setAdapter(adapter);
-                if (magazinesArray.size() == 0) {
-                    setListViewEnabled(false);
-                } else {
-                    setListViewEnabled(true);
-                }
+            adapter = new MagazineCellAdapter(magazinesListView.getContext(), magazinesArray);
+            magazinesListView.setAdapter(adapter);
+            if(magazinesArray.size() == 0){
+                setListViewEnabled(false);
             }else{
-                ArrayList<Magazine> currentMagazines = adapter.getAllViews();
-                if(magazinesArray.size() != 0) {
-                    for (int i = 0; i < magazinesArray.size(); i++) {
-                        if (!currentMagazines.contains(magazinesArray.get(i))) {
-                            magazinesArray.add(magazinesArray.get(i));
-                        }
-                    }
-                    adapter = new MagazineCellAdapter(magazinesListView.getContext(), magazinesArray);
-                    magazinesListView.setAdapter(adapter);
-                    setListViewEnabled(true);
-                }else{
-                    setListViewEnabled(false);
-                }
+                setListViewEnabled(true);
             }
         }
     }
