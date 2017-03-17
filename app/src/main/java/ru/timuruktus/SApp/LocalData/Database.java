@@ -23,13 +23,13 @@ public class Database {
 
     @Subscribe
     public void getAllMagazines(EGetMagazinesDB event){
-        Log.d("mytag", "Database.getAllMagazines()");
-        List<Magazine> magazineDB = Select.from(Magazine.class)
-                .where(Condition.prop("city").eq(event.getCity()),
-                        Condition.prop("school").eq(event.getSchool()))
-                .list();
-        event.setMagazines(magazineDB);
-        event.callback();
+            Log.d("mytag", "Database.getAllMagazines()");
+            List<Magazine> magazineDB = Select.from(Magazine.class)
+                    .where(Condition.prop("city").eq(event.getCity()),
+                            Condition.prop("school").eq(event.getSchool()))
+                    .list();
+            event.setMagazines(magazineDB);
+            event.callback();
     }
 
     @Subscribe
@@ -56,6 +56,30 @@ public class Database {
         }
         this.objectIds = objectIds;
     }
+
+    @Subscribe
+    public void magazineDOwnloadedEventListener(EMagazineDownloaded event){
+        boolean PDF = event.isPDF();
+        String objectId = event.getMagazine().getObjectId();
+        String destinationPath = event.getDownloadedPath();
+        Magazine magazine = getMagazineById(objectId);
+        if(PDF){
+            magazine.setDownloadedPDF(true);
+            magazine.setDownloadedPDFPath(destinationPath);
+        }else{
+            magazine.setDownloadedText(true);
+            magazine.setDownloadedTextPath(destinationPath);
+        }
+        magazine.save();
+    }
+
+    private Magazine getMagazineById(String objectId){
+        List<Magazine> magazineDB = Select.from(Magazine.class)
+                .where(Condition.prop("object_id").eq(objectId))
+                .list();
+        return magazineDB.get(0);
+    }
+
 
 
 

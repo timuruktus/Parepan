@@ -15,7 +15,6 @@ public class EGetMagazinesDB implements BaseEvent {
     private BasePresenter presenter;
     String city;
     String school;
-
     private List<Magazine> magazines;
 
 
@@ -32,14 +31,6 @@ public class EGetMagazinesDB implements BaseEvent {
         this.city = city;
         this.school = school;
         this.fragment = fragment;
-    }
-
-    public EGetMagazinesDB(BaseFragment fragment) {
-        this.fragment = fragment;
-    }
-
-    public EGetMagazinesDB(BasePresenter presenter) {
-        this.presenter = presenter;
     }
 
     public List<Magazine> getMagazines() {
@@ -66,7 +57,6 @@ public class EGetMagazinesDB implements BaseEvent {
         this.school = school;
     }
 
-
     @Override
     public void callback() {
         Log.d("mytag", "EGetMagazinesDB.callback()");
@@ -76,4 +66,6 @@ public class EGetMagazinesDB implements BaseEvent {
             fragment.eventCallback(this);
         }
     }
+
+
 }

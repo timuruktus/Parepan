@@ -13,8 +13,6 @@ public class ESaveMagazines implements BaseEvent {
         this.magazines = magazines;
     }
 
-
-
     public ArrayList<Magazine> getMagazines() {
         return magazines;
     }

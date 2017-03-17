@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -46,12 +49,28 @@ public class MagazineFragment extends BaseFragment {
         if(event instanceof LEGetMagazines){
             LEGetMagazines currentEvent = (LEGetMagazines) event;
             magazinesArray = currentEvent.getMagazines();
-            adapter = new MagazineCellAdapter(magazinesListView.getContext(), magazinesArray);
-            magazinesListView.setAdapter(adapter);
-            if(magazinesArray.size() == 0){
-                setListViewEnabled(false);
+            if(adapter == null) {
+                adapter = new MagazineCellAdapter(magazinesListView.getContext(), magazinesArray);
+                magazinesListView.setAdapter(adapter);
+                if (magazinesArray.size() == 0) {
+                    setListViewEnabled(false);
+                } else {
+                    setListViewEnabled(true);
+                }
             }else{
-                setListViewEnabled(true);
+                ArrayList<Magazine> currentMagazines = adapter.getAllViews();
+                if(magazinesArray.size() != 0) {
+                    for (int i = 0; i < magazinesArray.size(); i++) {
+                        if (!currentMagazines.contains(magazinesArray.get(i))) {
+                            magazinesArray.add(magazinesArray.get(i));
+                        }
+                    }
+                    adapter = new MagazineCellAdapter(magazinesListView.getContext(), magazinesArray);
+                    magazinesListView.setAdapter(adapter);
+                    setListViewEnabled(true);
+                }else{
+                    setListViewEnabled(false);
+                }
             }
         }
     }
@@ -65,6 +84,9 @@ public class MagazineFragment extends BaseFragment {
         }else{
             haveNoMagazines.setVisibility(View.VISIBLE);
             haveMagazines.setVisibility(View.INVISIBLE);
+            ImageView errorArrow = (ImageView) rootView.findViewById(R.id.error_arrow);
+            Animation animation = AnimationUtils.loadAnimation(rootView.getContext(), R.anim.up_to_down);
+            errorArrow.startAnimation(animation);
         }
     }
 

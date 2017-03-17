@@ -42,28 +42,29 @@
             android:id="@+id/error_reload_pls"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/error_arrow"
-            android:layout_toStartOf="@+id/error_arrow"
             android:text="@string/no_magazine_reload_pls"
             android:textColor="@color/floating_label"
-            android:textStyle="italic" />
+            android:textStyle="italic"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/error_arrow"
+            android:layout_marginTop="18dp" />
 
         <ImageView
             android:id="@+id/magazine_image_not_found"
             android:layout_width="25dp"
             android:layout_height="25dp"
             app:srcCompat="@drawable/ic_magazine_not_found"
+            android:layout_marginEnd="27dp"
             android:layout_alignBottom="@+id/error_title"
-            android:layout_toStartOf="@+id/error_reload_pls"
-            android:layout_marginEnd="57dp" />
+            android:layout_toStartOf="@+id/error_reload_pls" />
 
         <ImageView
             android:id="@+id/error_arrow"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="32dp"
+            android:layout_marginEnd="50dp"
             app:srcCompat="@drawable/ic_arror_up"
-            android:layout_alignParentTop="true"
+            android:layout_below="@+id/error_reload_pls"
             android:layout_alignParentEnd="true" />
 
         <TextView

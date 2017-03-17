@@ -8,6 +8,7 @@
     <string name="action_settings">Настройки</string>
     <string name="continue_action">Продолжить</string>
     <string name="thanks">Спасибо</string>
+    <string name="error">Ошибка!</string>
     <string name="simple_title_for_toolbar">sample</string>
 
     // [FOR NAVIGATION MENU]
@@ -44,11 +45,12 @@
     <string name="no_magazine_title">Журналы не загружены.</string>
     <string name="no_magazine_text">Это может происходить по нескольким причинам:</string>
     <string name="no_magazine_reason_1">1) У Вас отсутствует интернет-соединение</string>
-    <string name="no_magazine_reason_2">2) Вы не выбрали Вашу школу (Для решения проблемы, перейдите во вкладку "изменить школу")</string>
+    <string name="no_magazine_reason_2">2) Вы не выбрали Вашу школу (Для решения проблемы, перейдите во вкладку \'изменить школу\')</string>
     <string name="no_magazine_reason_3">3) Ваша школа пока не выпустила ни одного журнала</string>
     <string name="no_magazine_try_to_reload">Попробуйте обновить список. (Требуется интернет-соединение)</string>
     <string name="no_magazine_thanks">Спасибо :)</string>
     <string name="no_magazine_reload_pls">Обновите, пожалуйста :)</string>
+    <string name="magazine_already_downloaded">Журнал уже скачан!</string>
 
     
     

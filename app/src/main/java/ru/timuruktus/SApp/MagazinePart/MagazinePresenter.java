@@ -46,31 +46,33 @@ public class MagazinePresenter implements BasePresenter {
         if(!event.isFromWeb()) {
             EventBus.getDefault().post(new EGetMagazinesDB(getCity(), getSchool(), this));
         }else{
-            EventBus.getDefault().post(new EGetMagazinesWeb(getWhereClause(), this));
+            EventBus.getDefault().post(new EGetMagazinesWeb(getWhereClause(getCity(), getSchool()), this));
         }
-    }
-
-    private String getWhereClause(){
-        return "city = '" + getCity() + "' and school = '"
-                + getSchool() + "'";
     }
 
     @Override
     public void eventCallback(BaseEvent event) {
+        List<Magazine> magazineList;
+        ArrayList<Magazine> magazineArrayList;
         if(event instanceof EGetMagazinesDB){
             EGetMagazinesDB currentEvent = (EGetMagazinesDB) event;
-            List<Magazine> magazineList = currentEvent.getMagazines();
-            ArrayList<Magazine> magazineArrayList = (ArrayList<Magazine>) magazineList;
+            magazineList = currentEvent.getMagazines();
+            magazineArrayList = (ArrayList<Magazine>) magazineList;
             lEGetMagazines.setMagazines(magazineArrayList);
             lEGetMagazines.callback();
         }else if(event instanceof EGetMagazinesWeb){
             EGetMagazinesWeb currentEvent = (EGetMagazinesWeb) event;
-            List<Magazine> magazineList = currentEvent.getMagazines();
-            ArrayList<Magazine> magazineArrayList = (ArrayList<Magazine>) magazineList;
+            magazineList = currentEvent.getMagazines();
+            magazineArrayList = (ArrayList<Magazine>) magazineList;
             saveMagazinesInDB(magazineArrayList);
             lEGetMagazines.setMagazines(magazineArrayList);
             lEGetMagazines.callback();
         }
+    }
+
+    private String getWhereClause(String city, String school){
+        return "city = '" + city + "' and school = '"
+                + school + "'";
     }
 
     private void saveMagazinesInDB(ArrayList<Magazine> magazines){

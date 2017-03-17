@@ -1,24 +1,34 @@
 package ru.timuruktus.SApp.MagazinePart;
 
 import android.content.Context;
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
+import com.thin.downloadmanager.DefaultRetryPolicy;
+import com.thin.downloadmanager.DownloadRequest;
+import com.thin.downloadmanager.DownloadStatusListenerV1;
+import com.thin.downloadmanager.ThinDownloadManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 
+import ru.timuruktus.SApp.LocalData.EMagazineDownloaded;
 import ru.timuruktus.SApp.LocalDataEvent;
 import ru.timuruktus.SApp.R;
+import ru.timuruktus.SApp.ToolbarEvents.ERefreshMagazinesList;
 
 
 public class MagazineCellAdapter extends BaseAdapter {
@@ -29,7 +39,6 @@ public class MagazineCellAdapter extends BaseAdapter {
     private Button downloadText;
     private Button readText;
     private Button readPDF;
-    private ArrayList<Button> buttons =  new ArrayList<>();
     private ArrayList<View> views =  new ArrayList<>();
     private RelativeLayout cell;
     private TextView viewTitle,viewViewsCount,viewPreview;
@@ -39,6 +48,7 @@ public class MagazineCellAdapter extends BaseAdapter {
     private final int DOWNLOAD_TEXT_COLOR = 0xffffbb33;
     private final int DOWNLOAD_PDF_COLOR = 0xff99cc00;
     private final int READ_COLOR = 0xffff4444;
+    ArrayList<Integer> downloadIds = new ArrayList<>();
 
     MagazineCellAdapter(Context context, ArrayList<Magazine> magazines) {
         this.context = context;
@@ -52,6 +62,10 @@ public class MagazineCellAdapter extends BaseAdapter {
     @Override
     public int getCount() {
         return magazines.size();
+    }
+
+    public ArrayList<Magazine> getAllViews(){
+        return magazines;
     }
 
     // элемент по позиции
@@ -222,10 +236,20 @@ public class MagazineCellAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 int id = v.getId();
+                Magazine m = magazines.get(pos);
+                View view = views.get(pos);
                 if(id == R.id.downloadPDF){
-                    //TODO
+                    if(!m.isDownloadedPDF()) {
+                        startDownload(m, view, true);
+                    }else{
+                        Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_LONG).show();
+                    }
                 }else if(id == R.id.downloadText){
-
+                    if(!m.isDownloadedPDF()) {
+                        startDownload(m, view, false);
+                    }else{
+                        Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_LONG).show();
+                    }
                 }else if(id == R.id.readPDF){
 
                 }else if(id == R.id.readText){
@@ -238,4 +262,60 @@ public class MagazineCellAdapter extends BaseAdapter {
             }
         };
     }
+
+    private void startDownload(final Magazine magazine, final View v, final boolean PDF){
+        String url;
+        final ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
+        final String destinationToDownload = getDestinationToDownload(magazine);
+        if(PDF){
+            url = magazine.getPdfUrl();
+        }else{
+            url = magazine.getTextUrl();
+        }
+        Uri downloadUri = Uri.parse(url);
+        Uri destinationUri = Uri.parse(destinationToDownload);
+        DownloadRequest downloadRequest = new DownloadRequest(downloadUri)
+                .setRetryPolicy(new DefaultRetryPolicy())
+                .setDestinationURI(destinationUri).setPriority(DownloadRequest.Priority.HIGH)
+                .setStatusListener(new DownloadStatusListenerV1(){
+                    @Override
+                    public void onDownloadComplete(DownloadRequest downloadRequest){
+                        setReadButtonEnabled(PDF, v);
+                        EventBus.getDefault().post(new EMagazineDownloaded(destinationToDownload, PDF, magazine));
+                        progressBar.setProgress(0);
+                        EventBus.getDefault().post(new ERefreshMagazinesList());
+                    }
+
+                    @Override
+                    public void onDownloadFailed(DownloadRequest downloadRequest, int errorCode, String errorMessage){
+                        Toast.makeText(context,R.string.error,Toast.LENGTH_LONG).show();
+                        Log.d("mytag", "MagazineCellAdapter.startDownload().onDownloadFailed() error message - " + errorMessage);
+                    }
+
+                    @Override
+                    public void onProgress(DownloadRequest downloadRequest, long totalBytes, long downloadedBytes, int progress){
+                        progressBar.setProgress(progress);
+                    }
+                });
+
+        ThinDownloadManager downloadManager = new ThinDownloadManager();
+        int downloadId = downloadManager.add(downloadRequest);
+
+    }
+
+    private String getDestinationToDownload(Magazine m){
+        return context.getExternalCacheDir().toString()+"/" + m.getObjectId();
+    }
+
+    private void setReadButtonEnabled(boolean PDF, View v){
+        Button button;
+        if(PDF){
+            button = (Button) v.findViewById(R.id.readPDF);
+        }else{
+            button = (Button) v.findViewById(R.id.readText);
+        }
+        MagazineCellAdapter.this.setButtonEnabled(button,true);
+    }
+
+
 }
