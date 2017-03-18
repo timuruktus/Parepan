@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -265,7 +264,6 @@ public class MagazineCellAdapter extends BaseAdapter {
 
     private void startDownload(final Magazine magazine, final View v, final boolean PDF){
         String url;
-        final ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.progressBar);
         final String destinationToDownload = getDestinationToDownload(magazine);
         if(PDF){
             url = magazine.getPdfUrl();
@@ -280,9 +278,7 @@ public class MagazineCellAdapter extends BaseAdapter {
                 .setStatusListener(new DownloadStatusListenerV1(){
                     @Override
                     public void onDownloadComplete(DownloadRequest downloadRequest){
-                        setReadButtonEnabled(PDF, v);
                         EventBus.getDefault().post(new EMagazineDownloaded(destinationToDownload, PDF, magazine));
-                        progressBar.setProgress(0);
                         EventBus.getDefault().post(new ERefreshMagazinesList());
                         Toast.makeText(context, R.string.magazine_downloaded ,Toast.LENGTH_LONG).show();
                     }
@@ -295,7 +291,6 @@ public class MagazineCellAdapter extends BaseAdapter {
 
                     @Override
                     public void onProgress(DownloadRequest downloadRequest, long totalBytes, long downloadedBytes, int progress){
-                        progressBar.setProgress(progress);
                     }
                 });
 
