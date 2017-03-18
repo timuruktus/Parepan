@@ -23,10 +23,13 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ru.timuruktus.SApp.LocalData.EMagazineDownloaded;
 import ru.timuruktus.SApp.LocalDataEvent;
+import ru.timuruktus.SApp.MainPart.EChangeFragment;
 import ru.timuruktus.SApp.R;
+import ru.timuruktus.SApp.TextPart.TextFragment;
 import ru.timuruktus.SApp.ToolbarEvents.ERefreshMagazinesList;
 
 
@@ -134,19 +137,23 @@ public class MagazineCellAdapter extends BaseAdapter {
     }
 
     private void setButtonsColors(Magazine m, View v){
+        Button downloadPDF = getButton(v, R.id.downloadPDF);
+        Button downloadText = getButton(v, R.id.downloadText);
+        Button readPDF = getButton(v, R.id.readPDF);
+        Button readText = getButton(v, R.id.readText);
             if(m.getPdfUrl() == null){
-                setButtonEnabled(getButton(v, R.id.downloadPDF), false);
-                setButtonEnabled(getButton(v, R.id.readPDF), false);
+                setButtonEnabled(downloadPDF, false);
+                setButtonEnabled(readPDF, false);
             }else{
                 boolean enable = isPDFDownload(m);
-                setButtonEnabled(getButton(v, R.id.readPDF), enable);
+                setButtonEnabled(readPDF, enable);
             }
             if(m.getTextUrl() == null){
-                setButtonEnabled(getButton(v, R.id.downloadText), false);
-                setButtonEnabled(getButton(v, R.id.readText), false);
+                setButtonEnabled(downloadText, false);
+                setButtonEnabled(readText, false);
             }else{
                 boolean enable = isTextDownload(m);
-                setButtonEnabled(getButton(v, R.id.readText), enable);
+                setButtonEnabled(readText, enable);
             }
     }
 
@@ -156,6 +163,7 @@ public class MagazineCellAdapter extends BaseAdapter {
             setActivatedButtonColor(b);
         }else{
             setDisabledColor(b);
+            b.setOnClickListener(null);
         }
     }
 
@@ -241,18 +249,22 @@ public class MagazineCellAdapter extends BaseAdapter {
                     if(!m.isDownloadedPDF()) {
                         startDownload(m, view, true);
                     }else{
-                        Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_SHORT).show();
                     }
                 }else if(id == R.id.downloadText){
                     if(!m.isDownloadedText()) {
                         startDownload(m, view, false);
                     }else{
-                        Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_SHORT).show();
                     }
                 }else if(id == R.id.readPDF){
 
                 }else if(id == R.id.readText){
-
+                    HashMap<String, String> path = new HashMap<>();
+                    path.put("Path", m.getDownloadedTextPath());
+                    Log.d("mytag", "MagazineCellAdapter.getViewClickListener, text download path = "
+                            + path.get("Path"));
+                    EventBus.getDefault().post(new EChangeFragment(new TextFragment(), true, path));
                 }else if (id == R.id.cell){
                     switchShowMode(pos);
                 }else if(id == R.id.preview){
@@ -301,16 +313,6 @@ public class MagazineCellAdapter extends BaseAdapter {
 
     private String getDestinationToDownload(Magazine m){
         return context.getExternalCacheDir().toString()+"/" + m.getObjectId();
-    }
-
-    private void setReadButtonEnabled(boolean PDF, View v){
-        Button button;
-        if(PDF){
-            button = (Button) v.findViewById(R.id.readPDF);
-        }else{
-            button = (Button) v.findViewById(R.id.readText);
-        }
-        MagazineCellAdapter.this.setButtonEnabled(button,true);
     }
 
 

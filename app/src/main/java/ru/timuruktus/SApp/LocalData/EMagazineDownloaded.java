@@ -8,12 +8,12 @@ public class EMagazineDownloaded implements BaseEvent {
 
 
     private String downloadedPath;
-    private boolean PDF;
+    private boolean isPDF;
     private Magazine magazine;
 
-    public EMagazineDownloaded(String downloadedPath, boolean PDF, Magazine magazine) {
+    public EMagazineDownloaded(String downloadedPath, boolean isPDF, Magazine magazine) {
         this.downloadedPath = downloadedPath;
-        this.PDF = PDF;
+        this.isPDF = isPDF;
         this.magazine = magazine;
     }
 
@@ -22,7 +22,7 @@ public class EMagazineDownloaded implements BaseEvent {
     }
 
     public boolean isPDF() {
-        return PDF;
+        return isPDF;
     }
 
     public Magazine getMagazine() {

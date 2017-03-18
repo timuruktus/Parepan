@@ -5,6 +5,9 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -64,11 +67,12 @@ public class MainPresenter implements BasePresenter {
     private void setNewFragment(Fragment fragment){
         if(isJoined() && (fragment instanceof MagazineFragment || fragment instanceof ScheduleFragment)) {
             fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+            return;
         }else if (!isJoined() && (fragment instanceof MagazineFragment || fragment instanceof ScheduleFragment)){
             fragmentTransaction.replace(R.id.fragmentContainer, new LoginFragment());
-        }else if(fragment instanceof LoginFragment){
-            fragmentTransaction.replace(R.id.fragmentContainer, new LoginFragment());
+            return;
         }
+        fragmentTransaction.replace(R.id.fragmentContainer, fragment);
     }
 
     @Subscribe
@@ -96,10 +100,20 @@ public class MainPresenter implements BasePresenter {
     }
 
     private void changeToolbarVisibility(boolean visible){
+        RelativeLayout fragmentContainer = (RelativeLayout)
+                mainActivity.findViewById(R.id.fragmentContainer);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if(visible){
             mainActivity.getSupportActionBar().show();
+            float dp = mainActivity.getResources().getDisplayMetrics().density;
+            int margin = 56;
+            int totalMargin =(int)  dp * margin;
+            layoutParams.setMargins(0,totalMargin,0,0);
+            fragmentContainer.setLayoutParams(layoutParams);
         }else{
             mainActivity.getSupportActionBar().hide();
+            layoutParams.setMargins(0,0,0,0);
+            fragmentContainer.setLayoutParams(layoutParams);
         }
     }
 

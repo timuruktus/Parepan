@@ -94,7 +94,7 @@
             android:background="@android:color/holo_orange_light"
             android:elevation="2dp"
             android:layout_width="100dp"
-            android:layout_alignBottom="@+id/preview"
+            android:layout_centerVertical="true"
             android:layout_alignStart="@+id/preview" />
 
         <Button
@@ -104,7 +104,7 @@
             android:background="@android:color/holo_red_light"
             android:elevation="5dp"
             android:layout_width="100dp"
-            android:layout_alignTop="@+id/readPDF"
+            android:layout_alignBottom="@+id/preview"
             android:layout_alignStart="@+id/preview" />
 
         <Button
@@ -114,8 +114,8 @@
             android:id="@+id/readPDF"
             android:background="@android:color/holo_red_light"
             android:elevation="5dp"
-            android:layout_centerVertical="true"
-            android:layout_alignEnd="@+id/preview" />
+            android:layout_alignBottom="@+id/preview"
+            android:layout_alignStart="@+id/downloadPDF" />
 
     </RelativeLayout>
 

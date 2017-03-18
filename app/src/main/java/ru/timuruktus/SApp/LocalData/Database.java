@@ -80,6 +80,10 @@ public class Database {
         return magazineDB.get(0);
     }
 
+    private void clearAllMagazines(){
+        Magazine.deleteAll(Magazine.class);
+    }
+
 
 
 

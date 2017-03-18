@@ -3,14 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:theme="@style/Theme.AppCompat.NoActionBar">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/fragmentContainer"
-        tools:layout="@layout/welcome_fragment"
-        android:layout_marginTop="?android:actionBarSize" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?android:actionBarSize"
+        tools:layout="@layout/welcome_fragment" />
 
     <include
         android:layout_width="fill_parent"
