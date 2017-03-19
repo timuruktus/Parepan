@@ -57,5 +57,10 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    public int convertDpToPx(int pixels){
+        float dp = this.getResources().getDisplayMetrics().density;
+        return (int) dp * pixels;
+    }
+
     public abstract void eventCallback(BaseEvent event);
 }

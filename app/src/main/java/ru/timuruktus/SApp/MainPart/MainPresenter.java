@@ -105,9 +105,7 @@ public class MainPresenter implements BasePresenter {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         if(visible){
             mainActivity.getSupportActionBar().show();
-            float dp = mainActivity.getResources().getDisplayMetrics().density;
-            int margin = 56;
-            int totalMargin =(int)  dp * margin;
+            int totalMargin = convertDpToPx(56);
             layoutParams.setMargins(0,totalMargin,0,0);
             fragmentContainer.setLayoutParams(layoutParams);
         }else{
@@ -115,6 +113,11 @@ public class MainPresenter implements BasePresenter {
             layoutParams.setMargins(0,0,0,0);
             fragmentContainer.setLayoutParams(layoutParams);
         }
+    }
+
+    public int convertDpToPx(int pixels){
+        float dp = mainActivity.getResources().getDisplayMetrics().density;
+        return (int) dp * pixels;
     }
 
     @Subscribe
