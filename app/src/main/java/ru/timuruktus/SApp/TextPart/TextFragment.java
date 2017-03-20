@@ -31,6 +31,8 @@ public class TextFragment extends BaseFragment {
     private static final int WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT;
     private static final int BLACK = 0xFF000000;
     private static final int GRAY = 0xFF777777;
+    LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(
+            MATCH_PARENT, WRAP_CONTENT);
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -47,8 +49,6 @@ public class TextFragment extends BaseFragment {
 
     public void setTitleText(String text){
         linearLayout = (LinearLayout) rootView.findViewById(R.id.textLayout);
-        LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(
-                MATCH_PARENT, WRAP_CONTENT);
         int margin = convertDpToPx(10);
         int textHeight = convertDpToPx(8);
         lParams.setMargins(margin, margin * 3, margin * 2, 0);
@@ -67,11 +67,12 @@ public class TextFragment extends BaseFragment {
     }
 
     public void setText(String text, boolean isBold, boolean isItalic){
+        //TODO: \n
         text = text.replaceAll("\\s+", " ");
-        if(text.equals(" ")) return;
+        text = text.replaceAll("/n", "\n");
+        text = text.trim();
+        if(text.equals(" ") || text.equals("")) return;
         Log.d("mytag", "TextFragment.setText() text = " + text);
-        LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(
-                MATCH_PARENT, WRAP_CONTENT);
         int margin = convertDpToPx(10);
         int textHeight = convertDpToPx(6);
         lParams.setMargins(margin, margin * 2, margin, 0);
@@ -93,9 +94,6 @@ public class TextFragment extends BaseFragment {
     }
 
     public void setImage(String url){
-        LinearLayout linearLayout = (LinearLayout) rootView.findViewById(R.id.textLayout);
-        LinearLayout.LayoutParams lParams = new LinearLayout.LayoutParams(
-                MATCH_PARENT, WRAP_CONTENT);
         int margin = convertDpToPx(15);
         lParams.setMargins(margin, margin * 2, margin, 0);
         ImageView image = new ImageView(rootView.getContext());

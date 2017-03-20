@@ -28,6 +28,7 @@ import java.util.HashMap;
 import ru.timuruktus.SApp.LocalData.EMagazineDownloaded;
 import ru.timuruktus.SApp.LocalDataEvent;
 import ru.timuruktus.SApp.MainPart.EChangeFragment;
+import ru.timuruktus.SApp.PDFPart.PDFFragment;
 import ru.timuruktus.SApp.R;
 import ru.timuruktus.SApp.TextPart.TextFragment;
 import ru.timuruktus.SApp.ToolbarEvents.ERefreshMagazinesList;
@@ -258,13 +259,9 @@ public class MagazineCellAdapter extends BaseAdapter {
                         Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_SHORT).show();
                     }
                 }else if(id == R.id.readPDF){
-
+                    EventBus.getDefault().post(new EChangeFragment(new PDFFragment(), true, getPath(true, m)));
                 }else if(id == R.id.readText){
-                    HashMap<String, String> path = new HashMap<>();
-                    path.put("Path", m.getDownloadedTextPath());
-                    Log.d("mytag", "MagazineCellAdapter.getViewClickListener, text download path = "
-                            + path.get("Path"));
-                    EventBus.getDefault().post(new EChangeFragment(new TextFragment(), true, path));
+                    EventBus.getDefault().post(new EChangeFragment(new TextFragment(), true, getPath(false, m)));
                 }else if (id == R.id.cell){
                     switchShowMode(pos);
                 }else if(id == R.id.preview){
@@ -274,9 +271,19 @@ public class MagazineCellAdapter extends BaseAdapter {
         };
     }
 
+    private HashMap<String, String> getPath(boolean PDF, Magazine m){
+        HashMap<String, String> path = new HashMap<>();
+        if(PDF){
+            path.put("Path", m.getDownloadedPDFPath());
+        }else{
+            path.put("Path", m.getDownloadedTextPath());
+        }
+        return path;
+    }
+
     private void startDownload(final Magazine magazine, final View v, final boolean PDF){
         String url;
-        final String destinationToDownload = getDestinationToDownload(magazine);
+        final String destinationToDownload = getDestinationToDownload(magazine, PDF);
         if(PDF){
             url = magazine.getPdfUrl();
         }else{
@@ -311,8 +318,13 @@ public class MagazineCellAdapter extends BaseAdapter {
 
     }
 
-    private String getDestinationToDownload(Magazine m){
-        return context.getExternalCacheDir().toString()+"/" + m.getObjectId();
+    private String getDestinationToDownload(Magazine m, boolean isPDF){
+        String path = context.getExternalCacheDir().toString() + "/" + m.getObjectId();
+        if(isPDF) {
+            return path + "pdf";
+        }else{
+            return path + "text";
+        }
     }
 
 

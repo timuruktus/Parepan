@@ -55,7 +55,6 @@ public class TextPresenter implements BasePresenter {
             try {
                 while ((line = bufferedReader.readLine()) != null){
                     stringBuilder.append(line);
-
                 }
                 String text = stringBuilder.toString();
                 Log.d("mytag", "TextPresenter.getTextListener() line = " + text);
