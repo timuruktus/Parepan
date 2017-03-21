@@ -6,29 +6,29 @@ import java.util.Date;
 
 public class Magazine extends SugarRecord {
 
-    String city;
-    String school;
-    String textUrl;
-    String pdfUrl;
-    String downloadedTextPath;
-    String downloadedPDFPath;
-    String title;
-    String titleImage;
-    String createdTime;
-    String preview;
-    String titleSchool;
-    Date created;
-    int viewsCount;
-    boolean downloadedPDF;
-    String objectId;
-    boolean downloadedText;
+    private String city;
+    private String school;
+    private String textUrl;
+    private String pdfUrl;
+    private String downloadedTextPath;
+    private String downloadedPDFPath;
+    private String title;
+    private String titleImage;
+    private String createdTime;
+    private String preview;
+    private String titleSchool;
+    private Date created;
+    private int downloadsCount;
+    private boolean downloadedPDF;
+    private String objectId;
+    private boolean downloadedText;
 
     public Magazine() {}
 
     public Magazine(String city, String school, String textUrl, String pdfUrl,
                     String downloadedTextPath, String downloadedPDFPath, String title,
                     String titleImage, String createdTime, String preview, String titleSchool,
-                    Date created, int viewsCount, boolean downloadedPDF, String objectId,
+                    Date created, int downloadsCount, boolean downloadedPDF, String objectId,
                     boolean downloadedText) {
         this.city = city;
         this.school = school;
@@ -42,7 +42,7 @@ public class Magazine extends SugarRecord {
         this.preview = preview;
         this.titleSchool = titleSchool;
         this.created = created;
-        this.viewsCount = viewsCount;
+        this.downloadsCount = downloadsCount;
         this.downloadedPDF = downloadedPDF;
         this.objectId = objectId;
         this.downloadedText = downloadedText;
@@ -88,12 +88,12 @@ public class Magazine extends SugarRecord {
         this.preview = preview;
     }
 
-    public int getViewsCount() {
-        return viewsCount;
+    public int getDownloadsCount() {
+        return downloadsCount;
     }
 
-    public void setViewsCount(int viewsCount) {
-        this.viewsCount = viewsCount;
+    public void setDownloadsCount(int downloadsCount) {
+        this.downloadsCount = downloadsCount;
     }
 
 

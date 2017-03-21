@@ -43,6 +43,31 @@ public class Database {
         }
     }
 
+    @Subscribe
+    public void clearMagazine(EClearDownloadedMagazine event){
+        boolean isPDF = event.isPDF();
+        String path = event.getPath();
+        if(isPDF) {
+            List<Magazine> magazines = Select.from(Magazine.class)
+                    .where(Condition.prop("downloaded_pdf_path").eq(path))
+                    .list();
+            Magazine magazine = magazines.get(0);
+            Log.d("mytag", "Database.clearMagazine() pdf path = " + magazine.getDownloadedPDFPath());
+            magazine.setDownloadedPDFPath("");
+            magazine.setDownloadedPDF(false);
+            magazine.save();
+        }else{
+            List<Magazine> magazines = Select.from(Magazine.class)
+                    .where(Condition.prop("downloaded_text_path").eq(path))
+                    .list();
+            Magazine magazine = magazines.get(0);
+            Log.d("mytag", "Database.clearMagazine() text path = " + magazine.getDownloadedTextPath());
+            magazine.setDownloadedTextPath("");
+            magazine.setDownloadedText(false);
+            magazine.save();
+        }
+    }
+
     private boolean isAlreadySaved(String objectId){
         initAllObjectIds();
         return objectIds.contains(objectId);
@@ -58,7 +83,7 @@ public class Database {
     }
 
     @Subscribe
-    public void magazineDOwnloadedEventListener(EMagazineDownloaded event){
+    public void magazineDownloadedEventListener(EMagazineDownloaded event){
         boolean PDF = event.isPDF();
         String objectId = event.getMagazine().getObjectId();
         String destinationPath = event.getDownloadedPath();
@@ -79,6 +104,8 @@ public class Database {
                 .list();
         return magazineDB.get(0);
     }
+
+
 
     private void clearAllMagazines(){
         Magazine.deleteAll(Magazine.class);

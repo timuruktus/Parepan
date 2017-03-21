@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import ru.timuruktus.SApp.BaseEvent;
 import ru.timuruktus.SApp.BaseFragment;
+import ru.timuruktus.SApp.MainPart.EChangeToolbarVisible;
 import ru.timuruktus.SApp.R;
 
 
@@ -103,6 +104,12 @@ public class TextFragment extends BaseFragment {
 
     public void loadMagazine(String textPath){
         EventBus.getDefault().post(new EGetText(textPath, this));
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        EventBus.getDefault().post(new EChangeToolbarVisible(false));
     }
 
     @Override

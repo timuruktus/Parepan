@@ -20,10 +20,10 @@ import org.greenrobot.eventbus.EventBus;
 import ru.timuruktus.SApp.BackendlessPart.BackendlessMagazines;
 import ru.timuruktus.SApp.LocalData.Database;
 import ru.timuruktus.SApp.LoginPart.LoginFragment;
+import ru.timuruktus.SApp.MagazinePart.ERefreshMagazinesList;
 import ru.timuruktus.SApp.MagazinePart.MagazineFragment;
 import ru.timuruktus.SApp.R;
 import ru.timuruktus.SApp.SchedulePart.ScheduleFragment;
-import ru.timuruktus.SApp.ToolbarEvents.ERefreshMagazinesList;
 import ru.timuruktus.SApp.WelcomePart.WelcomeFragment;
 
 public class MainActivity extends AppCompatActivity

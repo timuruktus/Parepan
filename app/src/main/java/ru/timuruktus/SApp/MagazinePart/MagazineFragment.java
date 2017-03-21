@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import ru.timuruktus.SApp.BaseEvent;
 import ru.timuruktus.SApp.BaseFragment;
 import ru.timuruktus.SApp.R;
-import ru.timuruktus.SApp.ToolbarEvents.ERefreshMagazinesList;
 
 
 public class MagazineFragment extends BaseFragment {

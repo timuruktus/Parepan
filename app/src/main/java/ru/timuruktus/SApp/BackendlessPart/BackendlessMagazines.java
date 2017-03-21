@@ -16,13 +16,14 @@ import ru.timuruktus.SApp.MagazinePart.Magazine;
 public class BackendlessMagazines {
 
     EGetMagazinesWeb eGetMagazinesWeb;
+    Magazine magazine = null;
 
     public BackendlessMagazines(){
         EventBus.getDefault().register(this);
     }
 
     @Subscribe
-    public void getMagazines(EGetMagazinesWeb event){
+    public void getMagazinesEventHandler(EGetMagazinesWeb event){
         BackendlessDataQuery dataQuery = new BackendlessDataQuery();
         eGetMagazinesWeb = event;
         try{
@@ -34,6 +35,43 @@ public class BackendlessMagazines {
             getData(dataQuery);
         }
 
+    }
+
+    @Subscribe
+    public void increaseDownloads(EIncreaseDownloads event){
+        BackendlessDataQuery dataQuery = new BackendlessDataQuery();
+        dataQuery.setWhereClause("objectId = '" + event.getObjectId() + "'");
+        changeMagazineDownloadsCount(dataQuery);
+    }
+
+    private void changeMagazineDownloadsCount(BackendlessDataQuery dataQuery){
+        Backendless.Persistence.of(Magazine.class).find(dataQuery,
+                new AsyncCallback<BackendlessCollection<Magazine>>(){
+                    @Override
+                    public void handleResponse( BackendlessCollection<Magazine> foundMagazines ) {
+                        magazine = foundMagazines.getCurrentPage().get(0);
+                        Log.d("mytag", "BackendlessMagazines.changeMagazineDownloadsCount() downloads count before = " + magazine.getDownloadsCount());
+                        magazine.setDownloadsCount(magazine.getDownloadsCount() + 1);
+                        Log.d("mytag", "BackendlessMagazines.changeMagazineDownloadsCount() downloads count after = " + magazine.getDownloadsCount());
+                        saveMagazineDownloadsCount(magazine);
+                    }
+                    @Override
+                    public void handleFault( BackendlessFault fault ) {
+                        Log.d("MagFragmentFault", fault.getCode());
+                    }
+                });
+    }
+
+    private void saveMagazineDownloadsCount(Magazine magazine){
+        Log.d("mytag", "BackendlessMagazines.saveMagazineDownloadsCount() downloads count before = " + magazine.getDownloadsCount());
+        Backendless.Persistence.save(magazine, new AsyncCallback<Magazine>() {
+            public void handleResponse(Magazine response) {
+                Log.d("mytag", "BackendlessMagazines.saveMagazineDownloadsCount() downloads count after = " + response.getDownloadsCount());
+            }
+
+            public void handleFault( BackendlessFault fault ) {
+            }
+        });
     }
 
     private void getData(BackendlessDataQuery  dataQuery){

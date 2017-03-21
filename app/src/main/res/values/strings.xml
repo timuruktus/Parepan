@@ -40,6 +40,8 @@
     <string name="magazine_download_pdf">Скачать (PDF)</string>
     <string name="magazine_read_text">Читать (Текст)</string>
     <string name="magazine_read_PDF">Читать (PDF)</string>
+    <string name="magazine_delete_pdf">Удалить PDF</string>
+    <string name="magazine_delete_text">Удалить текст</string>
     
     // [FOR MAGAZINE LAYOUT]
     <string name="no_magazine_title">Журналы не загружены.</string>

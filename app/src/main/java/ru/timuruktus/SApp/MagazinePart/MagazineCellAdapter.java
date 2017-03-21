@@ -1,6 +1,8 @@
 package ru.timuruktus.SApp.MagazinePart;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,13 +27,14 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import ru.timuruktus.SApp.BackendlessPart.EIncreaseDownloads;
+import ru.timuruktus.SApp.LocalData.EClearDownloadedMagazine;
 import ru.timuruktus.SApp.LocalData.EMagazineDownloaded;
 import ru.timuruktus.SApp.LocalDataEvent;
 import ru.timuruktus.SApp.MainPart.EChangeFragment;
 import ru.timuruktus.SApp.PDFPart.PDFFragment;
 import ru.timuruktus.SApp.R;
 import ru.timuruktus.SApp.TextPart.TextFragment;
-import ru.timuruktus.SApp.ToolbarEvents.ERefreshMagazinesList;
 
 
 public class MagazineCellAdapter extends BaseAdapter {
@@ -44,13 +47,14 @@ public class MagazineCellAdapter extends BaseAdapter {
     private Button readPDF;
     private ArrayList<View> views =  new ArrayList<>();
     private RelativeLayout cell;
-    private TextView viewTitle,viewViewsCount,viewPreview;
+    private TextView viewTitle, viewDownloadsCount,viewPreview;
     private final int BACKGROUND_COLOR_DISABLED = 0xAA191919;
     private final int ALPHA_INVISIBLE = 0;
     private final int ALPHA_VISIBLE = 1;
     private final int DOWNLOAD_TEXT_COLOR = 0xffffbb33;
     private final int DOWNLOAD_PDF_COLOR = 0xff99cc00;
     private final int READ_COLOR = 0xffff4444;
+    ImageView deleteMagazineImage;
     ArrayList<Integer> downloadIds = new ArrayList<>();
 
     MagazineCellAdapter(Context context, ArrayList<Magazine> magazines) {
@@ -94,14 +98,14 @@ public class MagazineCellAdapter extends BaseAdapter {
 
         Magazine magazine = getProduct(position);
 
-        String viewsCount = String.valueOf(magazine.getViewsCount());
+        String viewsCount = String.valueOf(magazine.getDownloadsCount());
         String title = magazine.getTitle();
         String imageURL = magazine.getTitleImage();
         String preview = magazine.getPreview();
         viewTitle = (TextView) view.findViewById(R.id.title);
         viewTitle.setText(title);
-        viewViewsCount = (TextView) view.findViewById(R.id.viewsCount);
-        viewViewsCount.setText(viewsCount);
+        viewDownloadsCount = (TextView) view.findViewById(R.id.downloadsCount);
+        viewDownloadsCount.setText(viewsCount);
         viewPreview = (TextView) view.findViewById(R.id.preview);
         viewPreview.setText(preview);
         viewPreview.setOnClickListener(getViewsClickListener(position));
@@ -109,6 +113,8 @@ public class MagazineCellAdapter extends BaseAdapter {
         Picasso.with(context).load(imageURL).into(magazineImage);
         cell = (RelativeLayout) view.findViewById(R.id.cell);
         cell.setOnClickListener(getViewsClickListener(position));
+        deleteMagazineImage = (ImageView) view.findViewById(R.id.deleteMagazineImage);
+        deleteMagazineImage.setOnClickListener(getViewsClickListener(position));
 
         downloadPDF = (Button) view.findViewById(R.id.downloadPDF);
         downloadPDF.setOnClickListener(getViewsClickListener(position));
@@ -246,29 +252,66 @@ public class MagazineCellAdapter extends BaseAdapter {
                 int id = v.getId();
                 Magazine m = magazines.get(pos);
                 View view = views.get(pos);
-                if(id == R.id.downloadPDF){
-                    if(!m.isDownloadedPDF()) {
-                        startDownload(m, view, true);
-                    }else{
-                        Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_SHORT).show();
-                    }
-                }else if(id == R.id.downloadText){
-                    if(!m.isDownloadedText()) {
-                        startDownload(m, view, false);
-                    }else{
-                        Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_SHORT).show();
-                    }
-                }else if(id == R.id.readPDF){
-                    EventBus.getDefault().post(new EChangeFragment(new PDFFragment(), true, getPath(true, m)));
-                }else if(id == R.id.readText){
-                    EventBus.getDefault().post(new EChangeFragment(new TextFragment(), true, getPath(false, m)));
-                }else if (id == R.id.cell){
-                    switchShowMode(pos);
-                }else if(id == R.id.preview){
-                    switchShowMode(pos);
+                switch(id){
+                    case R.id.downloadPDF:
+                        if(!m.isDownloadedPDF()) {
+                            startDownload(m, true);
+                            visualIncreaseDownloads(view);
+                        }else{
+                            Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_SHORT).show();
+                        }
+                    break;
+                    case R.id.downloadText:
+                        if(!m.isDownloadedText()) {
+                            startDownload(m, false);
+                            visualIncreaseDownloads(view);
+                        }else{
+                            Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    case R.id.readPDF:
+                        EventBus.getDefault().post(new EChangeFragment(new PDFFragment(), true, getPath(true, m)));
+                        break;
+                    case R.id.readText:
+                        EventBus.getDefault().post(new EChangeFragment(new TextFragment(), true, getPath(false, m)));
+                        break;
+                    case R.id.cell:
+                        switchShowMode(pos);
+                        break;
+                    case R.id.preview:
+                        switchShowMode(pos);
+                        break;
+                    case R.id.deleteMagazineImage:
+                        createDeleteDialog(v.getContext(), m);
+                        break;
                 }
             }
         };
+    }
+
+    private void createDeleteDialog(Context context, Magazine magazine){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final String PDFPath = magazine.getDownloadedPDFPath();
+        final String textPath = magazine.getDownloadedTextPath();
+
+        if(magazine.getPdfUrl() != null) {
+            builder.setPositiveButton(R.string.magazine_delete_pdf, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    EventBus.getDefault().post(new EClearDownloadedMagazine(PDFPath, true));
+                    EventBus.getDefault().post(new ERefreshMagazinesList());
+                }
+            });
+        }
+        if(magazine.getTextUrl() != null) {
+            builder.setNeutralButton(R.string.magazine_delete_text, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    EventBus.getDefault().post(new EClearDownloadedMagazine(textPath, false));
+                    EventBus.getDefault().post(new ERefreshMagazinesList());
+                }
+            });
+        }
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private HashMap<String, String> getPath(boolean PDF, Magazine m){
@@ -281,7 +324,7 @@ public class MagazineCellAdapter extends BaseAdapter {
         return path;
     }
 
-    private void startDownload(final Magazine magazine, final View v, final boolean PDF){
+    private void startDownload(final Magazine magazine, final boolean PDF){
         String url;
         final String destinationToDownload = getDestinationToDownload(magazine, PDF);
         if(PDF){
@@ -299,6 +342,7 @@ public class MagazineCellAdapter extends BaseAdapter {
                     public void onDownloadComplete(DownloadRequest downloadRequest){
                         EventBus.getDefault().post(new EMagazineDownloaded(destinationToDownload, PDF, magazine));
                         EventBus.getDefault().post(new ERefreshMagazinesList());
+                        EventBus.getDefault().post(new EIncreaseDownloads(magazine.getObjectId()));
                         Toast.makeText(context, R.string.magazine_downloaded ,Toast.LENGTH_LONG).show();
                     }
 
@@ -326,6 +370,12 @@ public class MagazineCellAdapter extends BaseAdapter {
             return path + "text";
         }
     }
+
+    private void visualIncreaseDownloads(View v){
+        viewDownloadsCount = (TextView) v.findViewById(R.id.downloadsCount);
+        viewDownloadsCount.setText(Integer.valueOf(viewDownloadsCount.getText().toString()) + 1 + "");
+    }
+
 
 
 }

@@ -12,10 +12,13 @@ import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
 import com.github.barteksc.pdfviewer.listener.OnPageScrollListener;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 
 import ru.timuruktus.SApp.BaseEvent;
 import ru.timuruktus.SApp.BaseFragment;
+import ru.timuruktus.SApp.MainPart.EChangeToolbarVisible;
 import ru.timuruktus.SApp.R;
 
 public class PDFFragment extends BaseFragment{
@@ -70,9 +73,9 @@ public class PDFFragment extends BaseFragment{
     }
 
     @Override
-    public void onStop(){
-        super.onStop();
-        file = null;
+    public void onResume(){
+        super.onResume();
+        EventBus.getDefault().post(new EChangeToolbarVisible(false));
     }
 
     @Override

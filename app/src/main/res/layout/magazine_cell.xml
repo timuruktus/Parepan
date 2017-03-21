@@ -6,117 +6,166 @@
     android:id="@+id/layout">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/cell"
-        android:background="@color/cell_background"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="5dp"
-        android:elevation="2dp">
-
-        <ImageView
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/img1"
-            android:id="@+id/magazineImage"
-            android:layout_width="95dp" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="false"
+        android:background="@color/contentBadgeTitle"
+        android:elevation="0dp">
 
         <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/title"
-            android:textColor="@color/floating_label"
-            android:layout_marginTop="8dp"
-            android:textStyle="normal|bold"
-            android:textSize="16sp" />
-
-        <TextView
-            android:text="@string/magazine_downloads"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView3"
-            android:textSize="12sp"
-            android:layout_below="@+id/title"
-            android:layout_marginTop="7dp"
-            android:layout_alignStart="@+id/title" />
-
-        <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/viewsCount"
-            android:layout_below="@+id/title"
-            android:layout_toEndOf="@+id/textView3"
-            android:textSize="12sp"
-            android:textColor="#a3a3a3"
-            android:layout_marginTop="7dp"
-            android:layout_marginStart="5dp" />
-
-        <TextView
-            android:text="TextView"
+            android:id="@+id/preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:id="@+id/preview"
-            android:textSize="14sp"
-            android:textStyle="normal|italic"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="false"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_alignStart="@+id/title" />
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="60dp"
+            android:text="TextView"
+            android:textSize="14sp"
+            android:textStyle="normal|italic" />
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:id="@+id/titleSeparator"
-            android:layout_marginTop="32dp"
-            android:layout_toEndOf="@+id/magazineImage"
-            android:background="#ff000000" />
-
-        <Button
-            android:text="@string/magazine_download_pdf"
-            android:layout_width="100dp"
+            android:id="@+id/magazineImage"
+            android:layout_width="95dp"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/downloadText"
-            android:layout_alignEnd="@+id/preview"
-            android:id="@+id/downloadPDF"
-            android:background="@android:color/holo_green_light"
-            android:elevation="2dp" />
+            app:srcCompat="@drawable/img1" />
 
-        <Button
-            android:text="@string/magazine_download_text"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/downloadText"
-            android:background="@android:color/holo_orange_light"
-            android:elevation="2dp"
-            android:layout_width="100dp"
-            android:layout_centerVertical="true"
-            android:layout_alignStart="@+id/preview" />
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="115dp">
 
-        <Button
-            android:text="@string/magazine_read_text"
-            android:layout_height="wrap_content"
-            android:id="@+id/readText"
-            android:background="@android:color/holo_red_light"
-            android:elevation="5dp"
-            android:layout_width="100dp"
-            android:layout_alignBottom="@+id/preview"
-            android:layout_alignStart="@+id/preview" />
+            <ImageView
+                android:id="@+id/titleSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="32dp"
+                android:layout_toEndOf="@+id/magazineImage"
+                android:background="#ff000000" />
 
-        <Button
-            android:text="@string/magazine_read_PDF"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/readPDF"
-            android:background="@android:color/holo_red_light"
-            android:elevation="5dp"
-            android:layout_alignBottom="@+id/preview"
-            android:layout_alignStart="@+id/downloadPDF" />
+            <TextView
+                android:id="@+id/downloadsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView3"
+                android:layout_toRightOf="@+id/textView3"
+                android:text="TextView"
+                android:textColor="#a3a3a3"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="false"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="40dp"
+                android:layout_toRightOf="@+id/downloadImage"
+                android:text="@string/magazine_downloads"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="TextView"
+                android:textColor="@color/floating_label"
+                android:textSize="16sp"
+                android:textStyle="normal|bold" />
+
+            <ImageView
+                android:id="@+id/downloadImage"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_marginTop="40dp"
+                app:srcCompat="@drawable/ic_magazine_cell_downloads" />
+        </RelativeLayout>
 
     </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/deleteMagazineImage"
+        android:layout_width="15dp"
+        android:layout_height="25dp"
+        android:layout_alignBottom="@+id/titleSeparator"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="10dp"
+        app:srcCompat="@drawable/ic_magazine_cell_delete" />
+
+    <LinearLayout
+        android:id="@+id/buttonsTable"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="60dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/downloadText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="false"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_orange_light"
+                android:elevation="2dp"
+                android:text="@string/magazine_download_text" />
+
+            <Button
+                android:id="@+id/readText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_light"
+                android:elevation="5dp"
+                android:text="@string/magazine_read_text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/downloadPDF"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
+                android:elevation="2dp"
+                android:text="@string/magazine_download_pdf" />
+
+            <Button
+                android:id="@+id/readPDF"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_light"
+                android:elevation="5dp"
+                android:text="@string/magazine_read_PDF" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </RelativeLayout>
