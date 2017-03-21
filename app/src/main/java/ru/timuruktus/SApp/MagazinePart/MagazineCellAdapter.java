@@ -27,7 +27,6 @@ import org.greenrobot.eventbus.Subscribe;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import ru.timuruktus.SApp.BackendlessPart.EIncreaseDownloads;
 import ru.timuruktus.SApp.LocalData.EClearDownloadedMagazine;
 import ru.timuruktus.SApp.LocalData.EMagazineDownloaded;
 import ru.timuruktus.SApp.LocalDataEvent;
@@ -104,8 +103,6 @@ public class MagazineCellAdapter extends BaseAdapter {
         String preview = magazine.getPreview();
         viewTitle = (TextView) view.findViewById(R.id.title);
         viewTitle.setText(title);
-        viewDownloadsCount = (TextView) view.findViewById(R.id.downloadsCount);
-        viewDownloadsCount.setText(viewsCount);
         viewPreview = (TextView) view.findViewById(R.id.preview);
         viewPreview.setText(preview);
         viewPreview.setOnClickListener(getViewsClickListener(position));
@@ -256,7 +253,6 @@ public class MagazineCellAdapter extends BaseAdapter {
                     case R.id.downloadPDF:
                         if(!m.isDownloadedPDF()) {
                             startDownload(m, true);
-                            visualIncreaseDownloads(view);
                         }else{
                             Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_SHORT).show();
                         }
@@ -264,7 +260,6 @@ public class MagazineCellAdapter extends BaseAdapter {
                     case R.id.downloadText:
                         if(!m.isDownloadedText()) {
                             startDownload(m, false);
-                            visualIncreaseDownloads(view);
                         }else{
                             Toast.makeText(context,R.string.magazine_already_downloaded,Toast.LENGTH_SHORT).show();
                         }
@@ -342,7 +337,6 @@ public class MagazineCellAdapter extends BaseAdapter {
                     public void onDownloadComplete(DownloadRequest downloadRequest){
                         EventBus.getDefault().post(new EMagazineDownloaded(destinationToDownload, PDF, magazine));
                         EventBus.getDefault().post(new ERefreshMagazinesList());
-                        EventBus.getDefault().post(new EIncreaseDownloads(magazine.getObjectId()));
                         Toast.makeText(context, R.string.magazine_downloaded ,Toast.LENGTH_LONG).show();
                     }
 
@@ -370,12 +364,5 @@ public class MagazineCellAdapter extends BaseAdapter {
             return path + "text";
         }
     }
-
-    private void visualIncreaseDownloads(View v){
-        viewDownloadsCount = (TextView) v.findViewById(R.id.downloadsCount);
-        viewDownloadsCount.setText(Integer.valueOf(viewDownloadsCount.getText().toString()) + 1 + "");
-    }
-
-
 
 }
