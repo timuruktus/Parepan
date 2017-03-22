@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.backendless.Backendless;
 
@@ -23,7 +24,6 @@ import ru.timuruktus.SApp.LoginPart.LoginFragment;
 import ru.timuruktus.SApp.MagazinePart.ERefreshMagazinesList;
 import ru.timuruktus.SApp.MagazinePart.MagazineFragment;
 import ru.timuruktus.SApp.R;
-import ru.timuruktus.SApp.SchedulePart.ScheduleFragment;
 import ru.timuruktus.SApp.WelcomePart.WelcomeFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-
+            Toast.makeText(this, R.string.unavailable_function, Toast.LENGTH_SHORT).show();
         }else if(id == R.id.magazine_refresh){
             EventBus.getDefault().post(new ERefreshMagazinesList());
         }
@@ -98,16 +98,17 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_book) {
             EventBus.getDefault().post(new EChangeFragment(new MagazineFragment(), true));
-        } else if (id == R.id.nav_schedule) {
-            EventBus.getDefault().post(new EChangeFragment(new ScheduleFragment(), true));
-        } else if (id == R.id.nav_main) {
+        }else if(id == R.id.nav_schedule) {
+            //EventBus.getDefault().post(new EChangeFragment(new ScheduleFragment(), true));
+            Toast.makeText(this, R.string.unavailable_function, Toast.LENGTH_SHORT).show();
+            return false;
+        }else if(id == R.id.nav_main){
             EventBus.getDefault().post(new EChangeFragment(new WelcomeFragment(), true));
-        } else if (id == R.id.nav_login) {
+        }else if(id == R.id.nav_login){
             EventBus.getDefault().post(new EChangeFragment(new LoginFragment(), true));
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        }else if(id == R.id.nav_homework){
+            Toast.makeText(this, R.string.unavailable_function, Toast.LENGTH_SHORT).show();
+            return false;
         }
 
         drawer.closeDrawer(GravityCompat.START);

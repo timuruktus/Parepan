@@ -32,6 +32,8 @@
     <string name="inDevelop">В разработке..</string>
     <string name="bookTitle">Журналы</string>
     <string name="bookText">Нажмите сюда, чтобы читать</string>
+    <string name="homeworkTitle">Домашнее задание</string>
+    <string name="unavailable_function">Извините, данная функция ещё недоступна</string>
 
     // [FOR MAGAZINES CELLS]
     <string name="magazine_downloads">Скачиваний: </string>

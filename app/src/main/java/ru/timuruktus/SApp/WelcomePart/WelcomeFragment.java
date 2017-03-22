@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -14,13 +15,12 @@ import ru.timuruktus.SApp.BaseFragment;
 import ru.timuruktus.SApp.MagazinePart.MagazineFragment;
 import ru.timuruktus.SApp.MainPart.EChangeFragment;
 import ru.timuruktus.SApp.R;
-import ru.timuruktus.SApp.SchedulePart.ScheduleFragment;
 
 
 public class WelcomeFragment extends BaseFragment implements View.OnClickListener {
 
     public View rootView;
-    public RelativeLayout bookCard, scheduleCard;
+    public RelativeLayout bookCard, scheduleCard, homeworkCard;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -38,6 +38,8 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
         bookCard.setOnClickListener(this);
         scheduleCard = (RelativeLayout) rootView.findViewById(R.id.scheduleCard);
         scheduleCard.setOnClickListener(this);
+        homeworkCard = (RelativeLayout) rootView.findViewById(R.id.homeworkCard);
+        homeworkCard.setOnClickListener(this);
     }
 
     @Override
@@ -46,8 +48,11 @@ public class WelcomeFragment extends BaseFragment implements View.OnClickListene
 
         if(id == R.id.bookCard){
             EventBus.getDefault().post(new EChangeFragment(new MagazineFragment(), true));
-        }else if (id == R.id.scheduleCard){
-            EventBus.getDefault().post(new EChangeFragment(new ScheduleFragment(), true));
+        }else if(id == R.id.scheduleCard){
+            //EventBus.getDefault().post(new EChangeFragment(new ScheduleFragment(), true));
+            Toast.makeText(rootView.getContext(), R.string.unavailable_function, Toast.LENGTH_SHORT).show();
+        }else if(id == R.id.homeworkCard){
+            Toast.makeText(rootView.getContext(), R.string.unavailable_function, Toast.LENGTH_SHORT).show();
         }
 
     }
