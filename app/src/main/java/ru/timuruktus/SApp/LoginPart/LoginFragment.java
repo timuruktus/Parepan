@@ -1,5 +1,6 @@
 package ru.timuruktus.SApp.LoginPart;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -10,6 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -29,7 +34,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private static final String[] CITIES = {
             "Моего города нет в списке", "Екатеринбург"};
     private static final String[] SCHOOLS_EKB = {
-            "Моей школы нет в списке", "№177"};
+            "Моей школы нет в списке", "177"};
     private static final String[] SCHOOLS_NO = {
             "Моей школы нет в списке"};
     private static final String[] SCHOOLS_EMPTY = {};
@@ -37,6 +42,9 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
     private final int FIRST_SPINNER_ITEM_POSITION = -1;
     private final boolean DISABLE = false;
     private final boolean ENABLE = true;
+    public final String SENDER_ID = "772541416893";
+    public static final String APP_PREFERENCES_DEVICE_REGISTERED = "Registered";
+    SharedPreferences mSettings;
 
 
     @Override
@@ -139,8 +147,51 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener 
         int id = v.getId();
 
         if(id == R.id.continueButton){
+            registerDevicePushNotifications();
             EventBus.getDefault().post(new ELoginConfirmed(city,school, this));
+
         }
+    }
+
+    public void registerDevicePushNotifications(){
+        String channel = "";
+        if(city.equals(CITIES[0])) {
+            channel = "default";
+        }else if(city.equals(CITIES[1])){
+            channel = "Yekaterinburg_";
+        }
+        channel += school;
+        Backendless.Messaging.unregisterDeviceOnServer(gerUnregisterCallback());
+        Backendless.Messaging.registerDevice(SENDER_ID, channel, getRegisterCallback());
+
+    }
+
+    private AsyncCallback<Boolean> gerUnregisterCallback(){
+        return new AsyncCallback<Boolean>() {
+            @Override
+            public void handleResponse(Boolean response) {
+                Log.d("mytag", "LoginFragment.gerUnregisterCallback() unregistration success " + response);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.d("mytag", "LoginFragment.gerUnregisterCallback() unregistration fault " + fault.toString());
+            }
+        };
+    }
+
+    private AsyncCallback<Void> getRegisterCallback(){
+        return new AsyncCallback<Void>() {
+            @Override
+            public void handleResponse(Void response) {
+                Log.d("mytag", "LoginFragment.getRegisterCallback() device registered");
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                Log.d("mytag", "LoginFragment.getRegisterCallback() registration fault " + fault.toString());
+            }
+        };
     }
 
     //ELoginConfirmed

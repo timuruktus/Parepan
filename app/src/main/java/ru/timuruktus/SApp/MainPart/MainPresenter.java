@@ -115,7 +115,7 @@ public class MainPresenter implements BasePresenter {
         }
     }
 
-    public int convertDpToPx(int pixels){
+    private int convertDpToPx(int pixels){
         float dp = mainActivity.getResources().getDisplayMetrics().density;
         return (int) dp * pixels;
     }

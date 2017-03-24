@@ -14,20 +14,6 @@
         android:background="@color/contentBadgeTitle"
         android:elevation="0dp">
 
-        <TextView
-            android:id="@+id/preview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="false"
-            android:layout_centerHorizontal="false"
-            android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="60dp"
-            android:text="TextView"
-            android:textSize="14sp"
-            android:textStyle="normal|italic" />
-
         <ImageView
             android:id="@+id/magazineImage"
             android:layout_width="95dp"
@@ -45,7 +31,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="32dp"
-                android:layout_toEndOf="@+id/magazineImage"
                 android:background="#ff000000" />
 
             <TextView
@@ -66,7 +51,6 @@
         android:id="@+id/deleteMagazineImage"
         android:layout_width="15dp"
         android:layout_height="25dp"
-        android:layout_alignBottom="@+id/titleSeparator"
         android:layout_alignParentBottom="false"
         android:layout_alignParentEnd="true"
         android:layout_margin="10dp"
@@ -140,5 +124,19 @@
 
         </LinearLayout>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="false"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="125dp"
+        android:layout_marginTop="60dp"
+        android:text="TextView"
+        android:textSize="14sp"
+        android:textStyle="normal|italic" />
 
 </RelativeLayout>

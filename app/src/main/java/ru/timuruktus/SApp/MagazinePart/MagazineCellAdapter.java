@@ -214,6 +214,9 @@ public class MagazineCellAdapter extends BaseAdapter {
         View currentView = views.get(viewPosition);
         TextView currentViewPreview = (TextView) currentView.findViewById(R.id.preview);
         enableView(currentViewPreview, enable);
+        if(!enable){
+            currentViewPreview.setClickable(false);
+        }
         ArrayList<Button> buttons = new ArrayList<>();
         buttons.add(getButton(currentView, R.id.downloadPDF));
         buttons.add(getButton(currentView, R.id.downloadText));
